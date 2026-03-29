@@ -19,5 +19,6 @@ FetchContent_MakeAvailable(cjson)
 
 add_executable(liked_song_memories main.c)
 
+target_include_directories(liked_song_memories PRIVATE ${cjson_SOURCE_DIR})
 target_include_directories(liked_song_memories PRIVATE ${CURL_INCLUDE_DIRS})
 target_link_libraries(liked_song_memories PRIVATE ${CURL_LIBRARIES} cjson)
