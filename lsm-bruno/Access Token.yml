@@ -1,0 +1,30 @@
+info:
+  name: Access Token
+  type: http
+  seq: 3
+
+http:
+  method: POST
+  url: https://accounts.spotify.com/api/token?grant_type=authorization_code&code=AQBxdJgN8wGC3LmwAB2otQWduEZfmgXPvcFErwz760fc7QPnHn9vt6g-fbmHn4jPcEzdqqrgervEb2PhhKFmQhqd3D4XM_VqOYlPgDJy3PAjz3xVNA359Lgnf8wiWcIYXxxrBaatmv3IdJ1HMfoE-6_Pgc_azQNaD4fdsegE&redirect_uri=https://kahfree.github.io/
+  headers:
+    - name: Content-Type
+      value: application/x-www-form-urlencoded
+    - name: Authorization
+      value: Basic MjIwYjhhYzAyYmQ5NDRlMjkyNDMyM2E0NTQyOWY2ZmE6ZTdkYzA1Yjc4ZmZlNDM5Yjk5OGNkNDVhMjYxNTcyZjA=
+  params:
+    - name: grant_type
+      value: authorization_code
+      type: query
+    - name: code
+      value: AQBxdJgN8wGC3LmwAB2otQWduEZfmgXPvcFErwz760fc7QPnHn9vt6g-fbmHn4jPcEzdqqrgervEb2PhhKFmQhqd3D4XM_VqOYlPgDJy3PAjz3xVNA359Lgnf8wiWcIYXxxrBaatmv3IdJ1HMfoE-6_Pgc_azQNaD4fdsegE
+      type: query
+    - name: redirect_uri
+      value: https://kahfree.github.io/
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

@@ -1,0 +1,25 @@
+info:
+  name: User Authorisation
+  type: http
+  seq: 1
+
+http:
+  method: GET
+  url: https://accounts.spotify.com/authorize?client_id=220b8ac02bd944e2924323a45429f6fa&response_type=code&redirect_uri=https://kahfree.github.io/
+  params:
+    - name: client_id
+      value: 220b8ac02bd944e2924323a45429f6fa
+      type: query
+    - name: response_type
+      value: code
+      type: query
+    - name: redirect_uri
+      value: https://kahfree.github.io/
+      type: query
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5
