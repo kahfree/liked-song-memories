@@ -16,7 +16,7 @@ struct MemoryStruct {
 
 size_t write_callback(char *data, size_t size, size_t num_bytes, void *userdata);
 char* base64Encoder(char input_str[], int len_str);
-CURLcode perform_curl_request(char *url, char *opts, struct curl_slist *headers, struct MemoryStruct chunk, char *errbuf, long isPost);
+CURLcode perform_curl_request(char *url, char *opts, struct curl_slist *headers, struct MemoryStruct *chunk, char *errbuf, long isPost);
 void perform_initial_auth_request(char *opts);
 void parse_auth_code(char *buffer, char *code);
 void open_socket_for_auth_code(char *buffer);
@@ -33,7 +33,7 @@ int main(const int argc, char *argv[]) {
 
     char token_opts[150] = {0};
     int token_opts_result = 
-      sprintf(token_opts,"client_id=%s&response_type=code&scope=user-library-read&redirect_uri=http://127.0.0.1:8080",client_id);
+      sprintf(token_opts,"client_id=%s&response_type=code&redirect_uri=http://127.0.0.1:8080",client_id);
 
     perform_initial_auth_request(token_opts);
 
@@ -44,8 +44,8 @@ int main(const int argc, char *argv[]) {
     parse_auth_code(buffer, auth_code);
     printf("%s\n", auth_code);
 
-    char args_to_base64_encode[65] = {0};
-    sprintf(args_to_base64_encode, "%s:%s\n", client_id, client_secret);
+    char args_to_base64_encode[66] = {0};
+    sprintf(args_to_base64_encode, "%s:%s", client_id, client_secret);
 
     struct curl_slist *hs = NULL;
     hs = curl_slist_append(hs, "Content-Type: application/x-www-form-urlencoded");
@@ -54,13 +54,13 @@ int main(const int argc, char *argv[]) {
     sprintf(authorization_header, "Authorization: Basic %s", base64Encoder(args_to_base64_encode, 65));
     temp22 = curl_slist_append(hs, authorization_header);
 
-    char new_token_opts[300] = {0};
-    sprintf(token_opts,
+    char new_opts[300] = {0};
+    sprintf(new_opts,
         "grant_type=authorization_code&code=%s&redirect_uri=http://127.0.0.1:8080"
         ,auth_code);
-    struct MemoryStruct chunk;
+    struct MemoryStruct chunk = {};
     char errbuf[CURL_ERROR_SIZE];
-    CURLcode curl_request_result = perform_curl_request("https://accounts.spotify.com/api/token", token_opts, hs, chunk, errbuf, 1L);
+    CURLcode curl_request_result = perform_curl_request("https://accounts.spotify.com/api/token", new_opts, hs, &chunk, errbuf, 1L);
     if(curl_request_result != CURLE_OK) {
       printf("requst wasn't ok\n");
         size_t len = strlen(errbuf);
@@ -71,10 +71,7 @@ int main(const int argc, char *argv[]) {
         else
             fprintf(stderr, "%s\n", curl_easy_strerror(curl_request_result));
     } else {
-      printf("requst was ok\n");
-      // printf("%s\n", chunk);
         cJSON *json = cJSON_Parse(chunk.data);
-        printf("request json was parsed\n");
         if (json == NULL) {
             const char *error_ptr = cJSON_GetErrorPtr();
             if (error_ptr != NULL) {
@@ -83,11 +80,10 @@ int main(const int argc, char *argv[]) {
             cJSON_Delete(json);
             return 1;
         }
-        printf("got the json\n");
-        printf("%s\n", json->child);
-        // char *access_token = json->child->valuestring;
-        // printf("access_token: %s\n", access_token);
+        char *access_token = json->child->valuestring;
+        printf("access_token: %s\n", access_token);
     }
+    // TODO: Make a basic query on user information and print to console
     return 0;
 }
 
@@ -177,13 +173,13 @@ void open_socket_for_auth_code(char *buffer) {
     close(new_socket);
     close(server_fd);
 }
-CURLcode perform_curl_request(char *url, char *opts, struct curl_slist *headers, struct MemoryStruct chunk, char *errbuf, long isPost) {
+CURLcode perform_curl_request(char *url, char *opts, struct curl_slist *headers, struct MemoryStruct *chunk, char *errbuf, long isPost) {
     CURL *curl;
     // The enum response type for curl operations
     CURLcode result;
     curl = curl_easy_init();
-    chunk.data = malloc(1);
-    chunk.size = 0;
+    chunk->data = malloc(1);
+    chunk->size = 0;
     if (curl) {
         curl_easy_setopt(curl, CURLOPT_URL, url);
         curl_easy_setopt(curl, CURLOPT_POST, isPost);
@@ -193,7 +189,7 @@ CURLcode perform_curl_request(char *url, char *opts, struct curl_slist *headers,
         void *data = {0};
 
         curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)chunk);
 
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
         result = curl_easy_perform(curl);
