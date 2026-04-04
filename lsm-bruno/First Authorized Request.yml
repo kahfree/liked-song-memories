@@ -1,0 +1,18 @@
+info:
+  name: First Authorized Request
+  type: http
+  seq: 4
+
+http:
+  method: GET
+  url: https://api.spotify.com/v1/me
+  headers:
+    - name: Authorization
+      value: Bearer BQCZr8ycrhYoAcXZLy4t_FvVN0-et5syfu9WOIMXOGN65pmpeyEMBuvSo2usCrAi__9KwGRVAfntAS1YbQY04QwQ6hm-kHSykxg8B2AqT_3wHRTFNg1r0ajR6ytvBYS9gKKqbbPXNaKLVtPQIpYNoTjSzcw_gU_s2gDyOOUPF9RDbVScMKZlSARJk3wlq4Hj3Xx7QabtV82ff7jzzB9csCIY5ktMUicQSX6wMRL8OdTRDb_9VEmc3aMBMOjFc2WHhpFqjA
+  auth: inherit
+
+settings:
+  encodeUrl: true
+  timeout: 0
+  followRedirects: true
+  maxRedirects: 5

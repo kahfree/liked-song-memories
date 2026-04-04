@@ -14,115 +14,119 @@ struct MemoryStruct {
     size_t size;
 };
 
-size_t write_callback(char *data, size_t size, size_t num_bytes, void *userdata) {
-    /* size always 1 according to docs, will avoid using */
-    // size_t realsize = size * num_bytes;
-    /* casting generic ptr to our struct to reuse memory*/
-    struct MemoryStruct *mem = userdata;
+size_t write_callback(char *data, size_t size, size_t num_bytes, void *userdata);
+char* base64Encoder(char input_str[], int len_str);
+CURLcode perform_curl_request(char *url, char *opts, struct curl_slist *headers, struct MemoryStruct chunk, char *errbuf, long isPost);
+void perform_initial_auth_request(char *opts);
+void parse_auth_code(char *buffer, char *code);
+void open_socket_for_auth_code(char *buffer);
 
-    char *parsed_data = realloc(mem->data, mem->size + num_bytes + 1);
-    if(!parsed_data) {
-        /* out of memory! */
-        printf("not enough memory (realloc returned NULL)\n");
-        return 0;
-    }
-
-    mem->data = parsed_data;
-    memcpy(&(mem->data[mem->size]), data, num_bytes);
-    mem->size += num_bytes;
-    mem->data[mem->size] = 0;
-
-    return num_bytes;
-}
-
-CURLcode perform_curl_request(char *url, char *opts, struct curl_slist *headers, struct MemoryStruct chunk, char *errbuf) {
-    CURL *curl;
-    // The enum response type for curl operations
-    CURLcode result;
-    curl = curl_easy_init();
-    chunk.data = malloc(1);
-    chunk.size = 0;
-    if (curl) {
-        curl_easy_setopt(curl, CURLOPT_URL,
-            "https://accounts.spotify.com/authorize");
-        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, opts);
-        errbuf[0] = 0;
-        curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errbuf);
-        void *data = {0};
-
-        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
-        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
-
-        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
-        result = curl_easy_perform(curl);
-        curl_easy_cleanup(curl);
-        return result;
-    }
-    curl_global_cleanup();
-    return CURLE_FAILED_INIT;
-}
 int main(const int argc, char *argv[]) {
-    printf("argc: %d\n", argc);
-    if (argc != 2) {
-        printf("Supply client ID");
+    // Check arg amount
+    if (argc != 3) {
+        printf("Supply client ID & client secret");
         return -1;
     }
-    struct MemoryStruct chunk;
-    char errbuf[CURL_ERROR_SIZE];
+    // parse our args
     char *client_id = argv[1];
+    char *client_secret = argv[2];
+
     char token_opts[150] = {0};
-    char *url = "https://accounts.spotify.com/authorize";
+    int token_opts_result = 
+      sprintf(token_opts,"client_id=%s&response_type=code&scope=user-library-read&redirect_uri=http://127.0.0.1:8080",client_id);
+
+    perform_initial_auth_request(token_opts);
+
+    char buffer[1024] = { 0 };
+    open_socket_for_auth_code(buffer);
+
+    char auth_code[300] = {0};
+    parse_auth_code(buffer, auth_code);
+    printf("%s\n", auth_code);
+
+    char args_to_base64_encode[65] = {0};
+    sprintf(args_to_base64_encode, "%s:%s\n", client_id, client_secret);
+
     struct curl_slist *hs = NULL;
     hs = curl_slist_append(hs, "Content-Type: application/x-www-form-urlencoded");
-    int token_opts_result = sprintf(token_opts,
-        "client_id=%s&response_type=code&redirect_uri=http://127.0.0.1:8080"
-        ,client_id);
-    if (token_opts_result < 1) {
-        printf("Something went wrong processing the opts\n");
-        return -1;
-    }
+    struct curl_slist *temp22= NULL;
+    char authorization_header[300] = {0}; 
+    sprintf(authorization_header, "Authorization: Basic %s", base64Encoder(args_to_base64_encode, 65));
+    temp22 = curl_slist_append(hs, authorization_header);
 
-    char get_request[300] = {0};
+    char new_token_opts[300] = {0};
+    sprintf(token_opts,
+        "grant_type=authorization_code&code=%s&redirect_uri=http://127.0.0.1:8080"
+        ,auth_code);
+    struct MemoryStruct chunk;
+    char errbuf[CURL_ERROR_SIZE];
+    CURLcode curl_request_result = perform_curl_request("https://accounts.spotify.com/api/token", token_opts, hs, chunk, errbuf, 1L);
+    if(curl_request_result != CURLE_OK) {
+      printf("requst wasn't ok\n");
+        size_t len = strlen(errbuf);
+        fprintf(stderr, "\nlibcurl: (%d) ", curl_request_result);
+        if(len)
+            fprintf(stderr, "%s%s", errbuf,
+                    ((errbuf[len - 1] != '\n') ? "\n" : ""));
+        else
+            fprintf(stderr, "%s\n", curl_easy_strerror(curl_request_result));
+    } else {
+      printf("requst was ok\n");
+      // printf("%s\n", chunk);
+        cJSON *json = cJSON_Parse(chunk.data);
+        printf("request json was parsed\n");
+        if (json == NULL) {
+            const char *error_ptr = cJSON_GetErrorPtr();
+            if (error_ptr != NULL) {
+                printf("Error: %s\n", error_ptr);
+            }
+            cJSON_Delete(json);
+            return 1;
+        }
+        printf("got the json\n");
+        printf("%s\n", json->child);
+        // char *access_token = json->child->valuestring;
+        // printf("access_token: %s\n", access_token);
+    }
+    return 0;
+}
+
+void perform_initial_auth_request(char *opts) {
+    char initial_auth_request[300] = {0};
+    // Choose command based on OS
     #ifdef __APPLE__
-        int get_request_result = sprintf(get_request,"open \"https://accounts.spotify.com/authorize?%s\"", token_opts);
+        sprintf(initial_auth_request,"open \"https://accounts.spotify.com/authorize?%s\"", opts);
     #elif __linux__
-        int get_request_result = sprintf(get_request,"firefox \"https://accounts.spotify.com/authorize?%s\"", token_opts);
+        sprintf(initial_auth_request,"firefox \"https://accounts.spotify.com/authorize?%s\"", opts);
     #elif __unix__
-        int get_request_result = sprintf(get_request,"firefox \"https://accounts.spotify.com/authorize?%s\"", token_opts);
+        sprintf(initial_auth_request,"firefox \"https://accounts.spotify.com/authorize?%s\"", opts);
     #else
         printf("Operating System: Unknown\n");
     #endif
-    // Launch the GET request in firefox
-    system(get_request);
-    // CURLcode curl_request_result = perform_curl_request(url, token_opts, hs, chunk, errbuf);
-    // if(curl_request_result != CURLE_OK) {
-    //     size_t len = strlen(errbuf);
-    //     // fprintf(stderr, "\nlibcurl: (%d) ", curl_request_result);
-    //     if(len)
-    //         fprintf(stderr, "%s%s", errbuf,
-    //                 ((errbuf[len - 1] != '\n') ? "\n" : ""));
-    //     else
-    //         fprintf(stderr, "%s\n", curl_easy_strerror(curl_request_result));
-    // } else {
-    //     cJSON *json = cJSON_Parse(chunk.data);
-    //     if (json == NULL) {
-    //         const char *error_ptr = cJSON_GetErrorPtr();
-    //         if (error_ptr != NULL) {
-    //             printf("Error: %s\n", error_ptr);
-    //         }
-    //         cJSON_Delete(json);
-    //         return 1;
-    //     }
-    //     char *access_token = json->child->valuestring;
-    //     // printf("access_token: %s\n", access_token);
-    // }
+    // Send the GET request via CLI command
+    system(initial_auth_request);
+}
 
+void parse_auth_code(char *buffer, char *code) {
+    // Known character length of auth code
+    const int AUTH_CODE_SIZE = 162 + 11;
+    // Offset as we expect 'GET /?code='
+    const int CODE_OFFSET = 11;
+    for(int i = CODE_OFFSET; i < 300; i++) {
+      if(buffer[i] == ' ')
+        break;
+      code[i-CODE_OFFSET] = buffer[i];
+    }
+
+    printf("auth code now: %s\n", code);
+}
+
+void open_socket_for_auth_code(char *buffer) {
     int server_fd, new_socket;
     ssize_t valread;
     struct sockaddr_in address;
     int opt = 1;
     socklen_t addrlen = sizeof(address);
-    char buffer[1024] = { 0 };
     char* hello = "Hello from server";
 
     // Creating socket file descriptor
@@ -169,14 +173,121 @@ int main(const int argc, char *argv[]) {
     // terminator at the end
     valread = read(new_socket, buffer,
                    1024 - 1); 
-    printf("%s\n", buffer);
-    send(new_socket, hello, strlen(hello), 0);
-    printf("Hello message sent\n");
-
-    // closing the connected socket
+    printf("I've read the buffer %d\n", valread);
     close(new_socket);
-
-    // closing the listening socket
     close(server_fd);
-    return 0;
+}
+CURLcode perform_curl_request(char *url, char *opts, struct curl_slist *headers, struct MemoryStruct chunk, char *errbuf, long isPost) {
+    CURL *curl;
+    // The enum response type for curl operations
+    CURLcode result;
+    curl = curl_easy_init();
+    chunk.data = malloc(1);
+    chunk.size = 0;
+    if (curl) {
+        curl_easy_setopt(curl, CURLOPT_URL, url);
+        curl_easy_setopt(curl, CURLOPT_POST, isPost);
+        curl_easy_setopt(curl, CURLOPT_POSTFIELDS, opts);
+        errbuf[0] = 0;
+        curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, errbuf);
+        void *data = {0};
+
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_callback);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, (void *)&chunk);
+
+        curl_easy_setopt(curl, CURLOPT_HTTPHEADER, headers);
+        result = curl_easy_perform(curl);
+        curl_easy_cleanup(curl);
+        return result;
+    }
+    curl_global_cleanup();
+    return CURLE_FAILED_INIT;
+}
+
+size_t write_callback(char *data, size_t size, size_t num_bytes, void *userdata) {
+    /* size always 1 according to docs, will avoid using */
+    // size_t realsize = size * num_bytes;
+    /* casting generic ptr to our struct to reuse memory*/
+    struct MemoryStruct *mem = userdata;
+
+    char *parsed_data = realloc(mem->data, mem->size + num_bytes + 1);
+    if(!parsed_data) {
+        /* out of memory! */
+        printf("not enough memory (realloc returned NULL)\n");
+        return 0;
+    }
+
+    mem->data = parsed_data;
+    memcpy(&(mem->data[mem->size]), data, num_bytes);
+    mem->size += num_bytes;
+    mem->data[mem->size] = 0;
+
+    printf("parsed data %s\n", parsed_data);
+    printf("returning num bytes %d\n", num_bytes);
+    return num_bytes;
+}
+
+char* base64Encoder(char input_str[], int len_str)
+{
+    // Character set of base64 encoding scheme
+    char char_set[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+    
+    // Resultant string
+    char *res_str = (char *) malloc(1000 * sizeof(char));
+    
+    int index, no_of_bits = 0, padding = 0, val = 0, count = 0, temp;
+    int i, j, k = 0;
+    
+    // Loop takes 3 characters at a time from 
+    // input_str and stores it in val
+    for (i = 0; i < len_str; i += 3) {
+        val = 0, count = 0, no_of_bits = 0;
+
+        for (j = i; j < len_str && j <= i + 2; j++) {
+          // binary data of input_str is stored in val
+          val = val << 8; 
+          
+          // (A + 0 = A) stores character in val
+          val = val | input_str[j]; 
+          
+          // calculates how many time loop 
+          // ran if "MEN" -> 3 otherwise "ON" -> 2
+          count++;
+        }
+
+        no_of_bits = count * 8; 
+
+        // calculates how many "=" to append after res_str.
+        padding = no_of_bits % 3; 
+
+        // extracts all bits from val (6 at a time) 
+        // and find the value of each block
+        while (no_of_bits != 0) {
+          // retrieve the value of each block
+          if (no_of_bits >= 6)
+          {
+              temp = no_of_bits - 6;
+              
+              // binary of 63 is (111111) f
+              index = (val >> temp) & 63; 
+              no_of_bits -= 6;         
+          }
+          else
+          {
+              temp = 6 - no_of_bits;
+              // append zeros to right if bits are less than 6
+              index = (val << temp) & 63; 
+              no_of_bits = 0;
+          }
+          res_str[k++] = char_set[index];
+        }
+    }
+
+    // padding is done here
+    for (i = 1; i <= padding; i++) {
+        res_str[k++] = '=';
+    }
+
+    res_str[k] = '\0';
+    return res_str;
 }

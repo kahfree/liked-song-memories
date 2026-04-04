@@ -5,7 +5,7 @@ info:
 
 http:
   method: POST
-  url: https://accounts.spotify.com/api/token?grant_type=authorization_code&code=AQBxdJgN8wGC3LmwAB2otQWduEZfmgXPvcFErwz760fc7QPnHn9vt6g-fbmHn4jPcEzdqqrgervEb2PhhKFmQhqd3D4XM_VqOYlPgDJy3PAjz3xVNA359Lgnf8wiWcIYXxxrBaatmv3IdJ1HMfoE-6_Pgc_azQNaD4fdsegE&redirect_uri=https://kahfree.github.io/
+  url: https://accounts.spotify.com/api/token?grant_type=authorization_code&code=AQCsRAFvQV-SAfIZ82DZUc_r-4E2O2-fTnpfHsWKoIQBC5QekWLsi4clk4F2FRHwPPWWv_9c_L3cgC__LwDb1CyW8xio_9VTVDA6xtlnnjTjVnMFYiXeKMkvXnYA4UKGAVZH_GeFvgzw5hC2w1RGYX8vt184k4W8bRjGyxCOLQjkXPfEErJ7wwmtCMg&redirect_uri=http://127.0.0.1:8080
   headers:
     - name: Content-Type
       value: application/x-www-form-urlencoded
@@ -16,10 +16,10 @@ http:
       value: authorization_code
       type: query
     - name: code
-      value: AQBxdJgN8wGC3LmwAB2otQWduEZfmgXPvcFErwz760fc7QPnHn9vt6g-fbmHn4jPcEzdqqrgervEb2PhhKFmQhqd3D4XM_VqOYlPgDJy3PAjz3xVNA359Lgnf8wiWcIYXxxrBaatmv3IdJ1HMfoE-6_Pgc_azQNaD4fdsegE
+      value: AQCsRAFvQV-SAfIZ82DZUc_r-4E2O2-fTnpfHsWKoIQBC5QekWLsi4clk4F2FRHwPPWWv_9c_L3cgC__LwDb1CyW8xio_9VTVDA6xtlnnjTjVnMFYiXeKMkvXnYA4UKGAVZH_GeFvgzw5hC2w1RGYX8vt184k4W8bRjGyxCOLQjkXPfEErJ7wwmtCMg
       type: query
     - name: redirect_uri
-      value: https://kahfree.github.io/
+      value: http://127.0.0.1:8080
       type: query
   auth: inherit
 
