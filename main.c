@@ -25,6 +25,7 @@ void parse_auth_code(char *buffer, char *code);
 void open_socket_for_auth_code(char *buffer);
 cJSON *parse_json_response(CURLcode response_code,
                            struct MemoryStruct *raw_response, char *errbuf);
+void parse_batch(cJSON *batch);
 
 int main(const int argc, char *argv[]) {
   // Check arg amount
@@ -91,29 +92,46 @@ int main(const int argc, char *argv[]) {
     char user_market_opt[100] = {0};
     sprintf(user_market_opt, "market=IE");
     // Offset is the item offset, not the page offset
-    curl_request_result = perform_curl_request("https://api.spotify.com/v1/me/tracks?offset=0&limit=50&market=IE", NULL, user_headers, &chunk3, errbuf, 0L);
-    cJSON *liked_songs = parse_json_response(curl_request_result, &chunk3, errbuf);
+    curl_request_result = perform_curl_request("https://api.spotify.com/v1/me/tracks?offset=0&limit=50&market=IE", NULL, user_headers, &chunk, errbuf, 0L);
+    cJSON *liked_songs = parse_json_response(curl_request_result, &chunk, errbuf);
+    cJSON *total_items = cJSON_GetObjectItemCaseSensitive(liked_songs, "total");
+    int total = 0;
+    if (total_items != NULL) {
+      total = total_items->valueint;
+    }
 
-    cJSON *items = cJSON_GetObjectItemCaseSensitive(liked_songs, "items");
-    cJSON *item = NULL;
-
-    cJSON_ArrayForEach(item, items) {
-      if (item != NULL) {
-        cJSON *added_at = cJSON_GetObjectItemCaseSensitive(item, "added_at");
-        cJSON *track = cJSON_GetObjectItemCaseSensitive(item, "track");
-        if (track != NULL) {
-          cJSON *artist = cJSON_GetObjectItemCaseSensitive(track, "artists")->child;
-          cJSON *track_name = cJSON_GetObjectItemCaseSensitive(track, "name");
-          if (artist != NULL) {
-            cJSON *artist_name = cJSON_GetObjectItemCaseSensitive(artist, "name");
-            printf("%s: %s (%s)\n", added_at->valuestring, track_name->valuestring, artist_name->valuestring);
-          }
-        }
-      }
+   parse_batch(liked_songs);
+    // Fetch at the max batch size
+    for (int offset = 50; offset < total; offset += 50) {
+      char next_request[150] = {0};
+      sprintf(next_request,"https://api.spotify.com/v1/me/tracks?offset=%d&limit=50&market=IE", offset);
+      curl_request_result = perform_curl_request(next_request, NULL, user_headers, &chunk, errbuf, 0L);
+      cJSON *liked_songs_batch = parse_json_response(curl_request_result, &chunk, errbuf);
+      parse_batch(liked_songs_batch);
     }
   cJSON_Delete(liked_songs);
   }
   return 0;
+}
+
+void parse_batch(cJSON *batch) {
+  cJSON *items = cJSON_GetObjectItemCaseSensitive(batch, "items");
+  cJSON *item = NULL;
+
+  cJSON_ArrayForEach(item, items) {
+    if (item != NULL) {
+      cJSON *added_at = cJSON_GetObjectItemCaseSensitive(item, "added_at");
+      cJSON *track = cJSON_GetObjectItemCaseSensitive(item, "track");
+      if (track != NULL) {
+        cJSON *artist = cJSON_GetObjectItemCaseSensitive(track, "artists")->child;
+        cJSON *track_name = cJSON_GetObjectItemCaseSensitive(track, "name");
+        if (artist != NULL) {
+          cJSON *artist_name = cJSON_GetObjectItemCaseSensitive(artist, "name");
+          printf("%s: %s (%s)\n", added_at->valuestring, track_name->valuestring, artist_name->valuestring);
+        }
+      }
+    }
+  }
 }
 
 cJSON *parse_json_response(CURLcode response_code,
@@ -273,8 +291,6 @@ size_t write_callback(char *data, size_t size, size_t num_bytes,
   mem->size += num_bytes;
   mem->data[mem->size] = 0;
 
-  // printf("parsed data %s\n", parsed_data);
-  printf("returning num bytes %zu\n", num_bytes);
   return num_bytes;
 }
 
