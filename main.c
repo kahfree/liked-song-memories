@@ -80,17 +80,12 @@ int main(const int argc, char *argv[]) {
   } else {
     char *access_token = parsed_json_response->child->valuestring;
     printf("access_token: %s\n", access_token);
-    // TODO: Make a basic query on user information and print to console
 
     struct curl_slist *user_headers = NULL;
     char access_token_header[300] = {0};
-    // struct MemoryStruct chunk2 = {};
     sprintf(access_token_header, "Authorization: Bearer %s", access_token);
     user_headers = curl_slist_append(user_headers, access_token_header);
-    // curl_request_result =
-    //     perform_curl_request("https://api.spotify.com/v1/me", NULL,
-    //                          user_headers, &chunk2, errbuf, 0L);
-    // parse_json_response(curl_request_result, &chunk2, errbuf);
+
 
     struct MemoryStruct chunk3 = {};
     char user_market_opt[100] = {0};
@@ -98,36 +93,25 @@ int main(const int argc, char *argv[]) {
     // Offset is the item offset, not the page offset
     curl_request_result = perform_curl_request("https://api.spotify.com/v1/me/tracks?offset=0&limit=50&market=IE", NULL, user_headers, &chunk3, errbuf, 0L);
     cJSON *liked_songs = parse_json_response(curl_request_result, &chunk3, errbuf);
-    // I think its 'object->href->items->first-item->added_at'
-    // printf("%s\n", liked_songs->child->next->child->child->valuestring);
+
     cJSON *items = cJSON_GetObjectItemCaseSensitive(liked_songs, "items");
-    // printf("%s\n", items->string);
-    // Start at first child and iterate
-    // cJSON *iterator = items->child;
-    // while (iterator != NULL) {
-    //   char *added_at = iterator->child->valuestring;
-    //   char *artist = iterator->child->next->child->next->child->child->next->next->next->valuestring;
-    //   char *track_name = iterator->child->next->child->next->next->next->next->next->next->next->next->next->next->next->valuestring;
-    //   printf("%s: %s (%s)\n", added_at, track_name, artist);
-    //   iterator = iterator->next;
-    // }
-
-    printf("items string: %d\n", items->type);
-    printf("item size: %d\n", cJSON_GetArraySize(items));
     cJSON *item = NULL;
-    for(int i = 0; i < cJSON_GetArraySize(items); i++) {
 
-      cJSON *added_at = cJSON_GetObjectItemCaseSensitive(item, "added_at");
-      printf("%s\n", added_at->string);
-    }
     cJSON_ArrayForEach(item, items) {
-      printf("hello");
-      cJSON *added_at = cJSON_GetObjectItemCaseSensitive(item, "added_at");
-      cJSON *artist = cJSON_GetObjectItemCaseSensitive(item, "artist");
-      cJSON *track_name = cJSON_GetObjectItemCaseSensitive(item, "track_name");
-      printf("%s: %s (%s)\n", added_at->valuestring, track_name->valuestring, artist->valuestring);
+      if (item != NULL) {
+        cJSON *added_at = cJSON_GetObjectItemCaseSensitive(item, "added_at");
+        cJSON *track = cJSON_GetObjectItemCaseSensitive(item, "track");
+        if (track != NULL) {
+          cJSON *artist = cJSON_GetObjectItemCaseSensitive(track, "artists")->child;
+          cJSON *track_name = cJSON_GetObjectItemCaseSensitive(track, "name");
+          if (artist != NULL) {
+            cJSON *artist_name = cJSON_GetObjectItemCaseSensitive(artist, "name");
+            printf("%s: %s (%s)\n", added_at->valuestring, track_name->valuestring, artist_name->valuestring);
+          }
+        }
+      }
     }
-
+  cJSON_Delete(liked_songs);
   }
   return 0;
 }
