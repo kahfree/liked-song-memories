@@ -93,9 +93,11 @@ int main(const int argc, char *argv[]) {
     // parse_json_response(curl_request_result, &chunk2, errbuf);
 
     struct MemoryStruct chunk3 = {};
-    char user_market_opt[10] = "market=IE";
-    curl_request_result = perform_curl_request("https://api.spotify.com/v1/me/tracks", user_market_opt, user_headers, &chunk3, errbuf, 0L);
-    parse_json_response(curl_request_result, &chunk3, errbuf);
+    char user_market_opt[100] = {0};
+    sprintf(user_market_opt, "market=IE");
+    curl_request_result = perform_curl_request("https://api.spotify.com/v1/me/tracks", NULL, user_headers, &chunk3, errbuf, 0L);
+    cJSON *liked_songs = parse_json_response(curl_request_result, &chunk3, errbuf);
+    printf("%s\n", liked_songs);
   }
   return 0;
 }
@@ -112,6 +114,7 @@ cJSON *parse_json_response(CURLcode response_code,
       fprintf(stderr, "%s\n", curl_easy_strerror(response_code));
     return NULL;
   } else {
+    printf("%s\n", raw_response->data);
     cJSON *json = cJSON_Parse(raw_response->data);
     if (json == NULL) {
       const char *error_ptr = cJSON_GetErrorPtr();
@@ -256,7 +259,7 @@ size_t write_callback(char *data, size_t size, size_t num_bytes,
   mem->size += num_bytes;
   mem->data[mem->size] = 0;
 
-  printf("parsed data %s\n", parsed_data);
+  // printf("parsed data %s\n", parsed_data);
   printf("returning num bytes %zu\n", num_bytes);
   return num_bytes;
 }
