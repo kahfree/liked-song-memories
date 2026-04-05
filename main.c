@@ -39,7 +39,7 @@ int main(const int argc, char *argv[]) {
   char token_opts[150] = {0};
   int token_opts_result = sprintf(
       token_opts,
-      "client_id=%s&response_type=code&redirect_uri=http://127.0.0.1:8080",
+      "client_id=%s&response_type=code&scope=user-library-read&redirect_uri=http://127.0.0.1:8080",
       client_id);
 
   perform_initial_auth_request(token_opts);
@@ -82,16 +82,20 @@ int main(const int argc, char *argv[]) {
     printf("access_token: %s\n", access_token);
     // TODO: Make a basic query on user information and print to console
 
-    token_opts[0] = '\0';
     struct curl_slist *user_headers = NULL;
     char access_token_header[300] = {0};
-    struct MemoryStruct chunk2 = {};
+    // struct MemoryStruct chunk2 = {};
     sprintf(access_token_header, "Authorization: Bearer %s", access_token);
     user_headers = curl_slist_append(user_headers, access_token_header);
-    curl_request_result =
-        perform_curl_request("https://api.spotify.com/v1/me", NULL,
-                             user_headers, &chunk2, errbuf, 0L);
-    parse_json_response(curl_request_result, &chunk2, errbuf);
+    // curl_request_result =
+    //     perform_curl_request("https://api.spotify.com/v1/me", NULL,
+    //                          user_headers, &chunk2, errbuf, 0L);
+    // parse_json_response(curl_request_result, &chunk2, errbuf);
+
+    struct MemoryStruct chunk3 = {};
+    char user_market_opt[10] = "market=IE";
+    curl_request_result = perform_curl_request("https://api.spotify.com/v1/me/tracks", user_market_opt, user_headers, &chunk3, errbuf, 0L);
+    parse_json_response(curl_request_result, &chunk3, errbuf);
   }
   return 0;
 }
