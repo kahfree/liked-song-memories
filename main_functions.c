@@ -7,7 +7,6 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#include <time.h>
 #define PORT 8080
 
 struct MemoryStruct {
@@ -27,135 +26,12 @@ void open_socket_for_auth_code(char *buffer);
 cJSON *parse_json_response(CURLcode response_code,
                            struct MemoryStruct *raw_response, char *errbuf);
 void parse_batch(cJSON *batch);
-void slice(const char* str, char* result, size_t start, size_t end) {
-    strncpy(result, str + start, end - start);
-}
 
-int main(const int argc, char *argv[]) {
-  // Check arg amount
-  if (argc != 3) {
-    printf("Supply client ID & client secret");
-    return -1;
-  }
-  // parse our args
-  char *client_id = argv[1];
-  char *client_secret = argv[2];
-
-  char token_opts[150] = {0};
-  int token_opts_result = sprintf(
-      token_opts,
-      "client_id=%s&response_type=code&scope=user-library-read&redirect_uri=http://127.0.0.1:8080",
-      client_id);
-
-  perform_initial_auth_request(token_opts);
-
-  char buffer[1024] = {0};
-  open_socket_for_auth_code(buffer);
-
-  char auth_code[300] = {0};
-  parse_auth_code(buffer, auth_code);
-  // printf("%s\n", auth_code);
-
-  char args_to_base64_encode[66] = {0};
-  sprintf(args_to_base64_encode, "%s:%s", client_id, client_secret);
-
-  struct curl_slist *hs = NULL;
-  hs = curl_slist_append(hs, "Content-Type: application/x-www-form-urlencoded");
-  struct curl_slist *temp22 = NULL;
-  char authorization_header[300] = {0};
-  sprintf(authorization_header, "Authorization: Basic %s",
-          base64Encoder(args_to_base64_encode, 65));
-  temp22 = curl_slist_append(hs, authorization_header);
-
-  char new_opts[300] = {0};
-  sprintf(new_opts,
-          "grant_type=authorization_code&code=%s&redirect_uri=http://"
-          "127.0.0.1:8080",
-          auth_code);
-  struct MemoryStruct chunk = {};
-  char errbuf[CURL_ERROR_SIZE];
-  CURLcode curl_request_result =
-      perform_curl_request("https://accounts.spotify.com/api/token", new_opts,
-                           hs, &chunk, errbuf, 1L);
-  cJSON *parsed_json_response =
-      parse_json_response(curl_request_result, &chunk, errbuf);
-  if (parsed_json_response == NULL) {
-    printf("Empty response\n");
-    return -1;
-  } else {
-    char *access_token = parsed_json_response->child->valuestring;
-    // printf("access_token: %s\n", access_token);
-
-    struct curl_slist *user_headers = NULL;
-    char access_token_header[300] = {0};
-    sprintf(access_token_header, "Authorization: Bearer %s", access_token);
-    user_headers = curl_slist_append(user_headers, access_token_header);
-
-
-    struct MemoryStruct chunk3 = {};
-    char user_market_opt[100] = {0};
-    sprintf(user_market_opt, "market=IE");
-    // Offset is the item offset, not the page offset
-    printf("Songs you've liked on this day:\n");
-    curl_request_result = perform_curl_request("https://api.spotify.com/v1/me/tracks?offset=0&limit=50&market=IE", NULL, user_headers, &chunk, errbuf, 0L);
-    cJSON *liked_songs = parse_json_response(curl_request_result, &chunk, errbuf);
-    cJSON *total_items = cJSON_GetObjectItemCaseSensitive(liked_songs, "total");
-    int total = 0;
-    if (total_items != NULL) {
-      total = total_items->valueint;
-    }
-
-   parse_batch(liked_songs);
-    // Fetch at the max batch size
-    for (int offset = 50; offset < total; offset += 50) {
-      char next_request[150] = {0};
-      sprintf(next_request,"https://api.spotify.com/v1/me/tracks?offset=%d&limit=50&market=IE", offset);
-      curl_request_result = perform_curl_request(next_request, NULL, user_headers, &chunk, errbuf, 0L);
-      cJSON *liked_songs_batch = parse_json_response(curl_request_result, &chunk, errbuf);
-      parse_batch(liked_songs_batch);
-    }
-  cJSON_Delete(liked_songs);
-  }
-  return 0;
-}
-
-void parse_batch(cJSON *batch) {
-  cJSON *items = cJSON_GetObjectItemCaseSensitive(batch, "items");
-  cJSON *item = NULL;
-
-  cJSON_ArrayForEach(item, items) {
-    if (item != NULL) {
-      cJSON *added_at = cJSON_GetObjectItemCaseSensitive(item, "added_at");
-      cJSON *track = cJSON_GetObjectItemCaseSensitive(item, "track");
-      if (track != NULL) {
-        cJSON *artist = cJSON_GetObjectItemCaseSensitive(track, "artists")->child;
-        cJSON *track_name = cJSON_GetObjectItemCaseSensitive(track, "name");
-        if (artist != NULL) {
-          cJSON *artist_name = cJSON_GetObjectItemCaseSensitive(artist, "name");
-          char date[11] = "";
-          slice(added_at->valuestring, date, 0, 10);
-          time_t t = time(NULL);
-          struct tm tm = *localtime(&t);
-          // tm_year is 'year since 1900'
-          // tm_mon is zero indexed
-          struct tm song_dt = {};
-          char month[3] = "";
-          slice(date,month,5,7);
-          char day[3] = "";
-          slice(date,day,8,10);
-          if((tm.tm_mon+1) == atoi(month) && tm.tm_mday == atoi(day)) {
-            printf("%s (%s) ~ [%s]\n",track_name->valuestring, artist_name->valuestring, added_at->valuestring);
-          }
-        }
-      }
-    }
-  }
-}
 
 cJSON *parse_json_response(CURLcode response_code,
                            struct MemoryStruct *raw_response, char *errbuf) {
   if (response_code != CURLE_OK) {
-    printf("requst wasn't ok\n");
+    // printf("requst wasn't ok\n");
     size_t len = strlen(errbuf);
     fprintf(stderr, "\nlibcurl: (%d) ", response_code);
     if (len)
@@ -164,6 +40,7 @@ cJSON *parse_json_response(CURLcode response_code,
       fprintf(stderr, "%s\n", curl_easy_strerror(response_code));
     return NULL;
   } else {
+    // printf("%s\n", raw_response->data);
     cJSON *json = cJSON_Parse(raw_response->data);
     if (json == NULL) {
       const char *error_ptr = cJSON_GetErrorPtr();
@@ -181,15 +58,15 @@ void perform_initial_auth_request(char *opts) {
 // Choose command based on OS
 #ifdef __APPLE__
   sprintf(initial_auth_request,
-          "open \"https://accounts.spotify.com/authorize?%s\"", opts);
+           "open \"https://accounts.spotify.com/authorize?%s\"", opts);
 #elif __linux__
   sprintf(initial_auth_request,
-          "firefox \"https://accounts.spotify.com/authorize?%s\"", opts);
+           "firefox \"https://accounts.spotify.com/authorize?%s\"", opts);
 #elif __unix__
   sprintf(initial_auth_request,
-          "firefox \"https://accounts.spotify.com/authorize?%s\"", opts);
+           "firefox \"https://accounts.spotify.com/authorize?%s\"", opts);
 #else
-  printf("Operating System: Unknown\n");
+  // printf("Operating System: Unknown\n");
 #endif
   // Send the GET request via CLI command
   system(initial_auth_request);
@@ -205,6 +82,8 @@ void parse_auth_code(char *buffer, char *code) {
       break;
     code[i - CODE_OFFSET] = buffer[i];
   }
+
+  // printf("auth code now: %s\n", code);
 }
 
 void open_socket_for_auth_code(char *buffer) {
@@ -220,6 +99,7 @@ void open_socket_for_auth_code(char *buffer) {
     perror("socket failed");
     exit(EXIT_FAILURE);
   }
+  // printf("weve created the socket\n");
 
   // Forcefully attaching socket to the port 8080
   if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))) {
@@ -229,18 +109,19 @@ void open_socket_for_auth_code(char *buffer) {
   address.sin_family = AF_INET;
   address.sin_addr.s_addr = inet_addr("127.0.0.1");
   address.sin_port = htons(PORT);
+  // printf("set the socket options\n");
 
   // Forcefully attaching socket to the port 8080
   if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) {
     perror("bind failed");
     exit(EXIT_FAILURE);
   }
-
+  // printf("set the socket to the port\n");
   if (listen(server_fd, 3) < 0) {
     perror("listen");
     exit(EXIT_FAILURE);
   }
-
+  // printf("done listening to the socket\n");
   if ((new_socket = accept(server_fd, (struct sockaddr *)&address, &addrlen)) <
       0) {
     perror("accept");
@@ -250,6 +131,7 @@ void open_socket_for_auth_code(char *buffer) {
   // subtract 1 for the null
   // terminator at the end
   valread = read(new_socket, buffer, 1024 - 1);
+  // printf("I've read the buffer %zd\n", valread);
   close(new_socket);
   close(server_fd);
 }
@@ -293,8 +175,8 @@ size_t write_callback(char *data, size_t size, size_t num_bytes,
 
   char *parsed_data = realloc(mem->data, mem->size + num_bytes + 1);
   if (!parsed_data) {
-    /* out of memory! */
-    printf("not enough memory (realloc returned NULL)\n");
+    // out of memory!
+    // printf("not enough memory (realloc returned NULL)\n");
     return 0;
   }
 

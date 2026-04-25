@@ -1,0 +1,1 @@
+/usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/tui_example.dir/tui_example.c.o -o tui_example   -L/opt/homebrew/opt/notcurses/lib

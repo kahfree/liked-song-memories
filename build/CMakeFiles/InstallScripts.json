@@ -1,0 +1,10 @@
+{
+	"InstallScripts" : 
+	[
+		"/Users/ethancaffrey/Documents/liked-song-memories/build/cmake_install.cmake",
+		"/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/cmake_install.cmake",
+		"/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/tests/cmake_install.cmake",
+		"/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/fuzzing/cmake_install.cmake"
+	],
+	"Parallel" : false
+}

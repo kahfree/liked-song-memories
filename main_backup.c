@@ -7,7 +7,6 @@
 #include <string.h>
 #include <sys/socket.h>
 #include <unistd.h>
-#include <time.h>
 #define PORT 8080
 
 struct MemoryStruct {
@@ -27,9 +26,6 @@ void open_socket_for_auth_code(char *buffer);
 cJSON *parse_json_response(CURLcode response_code,
                            struct MemoryStruct *raw_response, char *errbuf);
 void parse_batch(cJSON *batch);
-void slice(const char* str, char* result, size_t start, size_t end) {
-    strncpy(result, str + start, end - start);
-}
 
 int main(const int argc, char *argv[]) {
   // Check arg amount
@@ -54,7 +50,7 @@ int main(const int argc, char *argv[]) {
 
   char auth_code[300] = {0};
   parse_auth_code(buffer, auth_code);
-  // printf("%s\n", auth_code);
+  printf("%s\n", auth_code);
 
   char args_to_base64_encode[66] = {0};
   sprintf(args_to_base64_encode, "%s:%s", client_id, client_secret);
@@ -84,7 +80,7 @@ int main(const int argc, char *argv[]) {
     return -1;
   } else {
     char *access_token = parsed_json_response->child->valuestring;
-    // printf("access_token: %s\n", access_token);
+    printf("access_token: %s\n", access_token);
 
     struct curl_slist *user_headers = NULL;
     char access_token_header[300] = {0};
@@ -96,7 +92,6 @@ int main(const int argc, char *argv[]) {
     char user_market_opt[100] = {0};
     sprintf(user_market_opt, "market=IE");
     // Offset is the item offset, not the page offset
-    printf("Songs you've liked on this day:\n");
     curl_request_result = perform_curl_request("https://api.spotify.com/v1/me/tracks?offset=0&limit=50&market=IE", NULL, user_headers, &chunk, errbuf, 0L);
     cJSON *liked_songs = parse_json_response(curl_request_result, &chunk, errbuf);
     cJSON *total_items = cJSON_GetObjectItemCaseSensitive(liked_songs, "total");
@@ -132,20 +127,7 @@ void parse_batch(cJSON *batch) {
         cJSON *track_name = cJSON_GetObjectItemCaseSensitive(track, "name");
         if (artist != NULL) {
           cJSON *artist_name = cJSON_GetObjectItemCaseSensitive(artist, "name");
-          char date[11] = "";
-          slice(added_at->valuestring, date, 0, 10);
-          time_t t = time(NULL);
-          struct tm tm = *localtime(&t);
-          // tm_year is 'year since 1900'
-          // tm_mon is zero indexed
-          struct tm song_dt = {};
-          char month[3] = "";
-          slice(date,month,5,7);
-          char day[3] = "";
-          slice(date,day,8,10);
-          if((tm.tm_mon+1) == atoi(month) && tm.tm_mday == atoi(day)) {
-            printf("%s (%s) ~ [%s]\n",track_name->valuestring, artist_name->valuestring, added_at->valuestring);
-          }
+          printf("%s: %s (%s)\n", added_at->valuestring, track_name->valuestring, artist_name->valuestring);
         }
       }
     }
@@ -164,6 +146,7 @@ cJSON *parse_json_response(CURLcode response_code,
       fprintf(stderr, "%s\n", curl_easy_strerror(response_code));
     return NULL;
   } else {
+    // printf("%s\n", raw_response->data);
     cJSON *json = cJSON_Parse(raw_response->data);
     if (json == NULL) {
       const char *error_ptr = cJSON_GetErrorPtr();
@@ -205,6 +188,8 @@ void parse_auth_code(char *buffer, char *code) {
       break;
     code[i - CODE_OFFSET] = buffer[i];
   }
+
+  printf("auth code now: %s\n", code);
 }
 
 void open_socket_for_auth_code(char *buffer) {
@@ -220,6 +205,7 @@ void open_socket_for_auth_code(char *buffer) {
     perror("socket failed");
     exit(EXIT_FAILURE);
   }
+  printf("weve created the socket\n");
 
   // Forcefully attaching socket to the port 8080
   if (setsockopt(server_fd, SOL_SOCKET, SO_REUSEADDR, &opt, sizeof(opt))) {
@@ -229,18 +215,19 @@ void open_socket_for_auth_code(char *buffer) {
   address.sin_family = AF_INET;
   address.sin_addr.s_addr = inet_addr("127.0.0.1");
   address.sin_port = htons(PORT);
+  printf("set the socket options\n");
 
   // Forcefully attaching socket to the port 8080
   if (bind(server_fd, (struct sockaddr *)&address, sizeof(address)) < 0) {
     perror("bind failed");
     exit(EXIT_FAILURE);
   }
-
+  printf("set the socket to the port\n");
   if (listen(server_fd, 3) < 0) {
     perror("listen");
     exit(EXIT_FAILURE);
   }
-
+  printf("done listening to the socket\n");
   if ((new_socket = accept(server_fd, (struct sockaddr *)&address, &addrlen)) <
       0) {
     perror("accept");
@@ -250,6 +237,7 @@ void open_socket_for_auth_code(char *buffer) {
   // subtract 1 for the null
   // terminator at the end
   valread = read(new_socket, buffer, 1024 - 1);
+  printf("I've read the buffer %zd\n", valread);
   close(new_socket);
   close(server_fd);
 }

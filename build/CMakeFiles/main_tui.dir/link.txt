@@ -1,0 +1,1 @@
+/usr/bin/cc  -arch arm64 -Wl,-search_paths_first -Wl,-headerpad_max_install_names CMakeFiles/main_tui.dir/main_tui_integration.c.o CMakeFiles/main_tui.dir/main_functions.c.o -o main_tui   -L/opt/homebrew/opt/notcurses/lib
