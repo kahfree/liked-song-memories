@@ -48,19 +48,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/homebrew/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /opt/homebrew/bin/cmake -E rm -f
+RM = /usr/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/ethancaffrey/Documents/liked-song-memories
+CMAKE_SOURCE_DIR = /home/ethanc/Documents/liked-song-memories
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ethancaffrey/Documents/liked-song-memories/build
+CMAKE_BINARY_DIR = /home/ethanc/Documents/liked-song-memories/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /Users/ethancaffrey/Documents/liked-song-memories/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
-	/opt/homebrew/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,7 +78,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
-	/opt/homebrew/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -97,56 +97,56 @@ list_install_components/fast: list_install_components
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/opt/homebrew/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/opt/homebrew/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/fuzzing//CMakeFiles/progress.marks
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/cjson-build/fuzzing/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 0
+	cd /home/ethanc/Documents/liked-song-memories/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build/fuzzing//CMakeFiles/progress.marks
+	cd /home/ethanc/Documents/liked-song-memories/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/cjson-build/fuzzing/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles 0
 .PHONY : all
 
 # The main codegen target
 codegen: cmake_check_build_system
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build && $(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/fuzzing//CMakeFiles/progress.marks
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/cjson-build/fuzzing/codegen
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 0
+	cd /home/ethanc/Documents/liked-song-memories/build && $(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build/fuzzing//CMakeFiles/progress.marks
+	cd /home/ethanc/Documents/liked-song-memories/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/cjson-build/fuzzing/codegen
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles 0
 .PHONY : codegen
 
 # The main clean target
 clean:
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/cjson-build/fuzzing/clean
+	cd /home/ethanc/Documents/liked-song-memories/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/cjson-build/fuzzing/clean
 .PHONY : clean
 
 # The main clean target
@@ -155,17 +155,17 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/cjson-build/fuzzing/preinstall
+	cd /home/ethanc/Documents/liked-song-memories/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/cjson-build/fuzzing/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/cjson-build/fuzzing/preinstall
+	cd /home/ethanc/Documents/liked-song-memories/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/cjson-build/fuzzing/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	cd /home/ethanc/Documents/liked-song-memories/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
 # Help Target
@@ -192,6 +192,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	cd /home/ethanc/Documents/liked-song-memories/build && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

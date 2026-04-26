@@ -44,19 +44,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/homebrew/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /opt/homebrew/bin/cmake -E rm -f
+RM = /usr/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/ethancaffrey/Documents/liked-song-memories
+CMAKE_SOURCE_DIR = /home/ethanc/Documents/liked-song-memories
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ethancaffrey/Documents/liked-song-memories/build
+CMAKE_BINARY_DIR = /home/ethanc/Documents/liked-song-memories/build
 
 # Include any dependencies generated for this target.
 include _deps/cjson-build/CMakeFiles/cjson.dir/depend.make
@@ -75,16 +75,16 @@ _deps/cjson-build/CMakeFiles/cjson.dir/codegen:
 _deps/cjson-build/CMakeFiles/cjson.dir/cJSON.c.o: _deps/cjson-build/CMakeFiles/cjson.dir/flags.make
 _deps/cjson-build/CMakeFiles/cjson.dir/cJSON.c.o: _deps/cjson-src/cJSON.c
 _deps/cjson-build/CMakeFiles/cjson.dir/cJSON.c.o: _deps/cjson-build/CMakeFiles/cjson.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object _deps/cjson-build/CMakeFiles/cjson.dir/cJSON.c.o"
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/cjson-build/CMakeFiles/cjson.dir/cJSON.c.o -MF CMakeFiles/cjson.dir/cJSON.c.o.d -o CMakeFiles/cjson.dir/cJSON.c.o -c /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-src/cJSON.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ethanc/Documents/liked-song-memories/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object _deps/cjson-build/CMakeFiles/cjson.dir/cJSON.c.o"
+	cd /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT _deps/cjson-build/CMakeFiles/cjson.dir/cJSON.c.o -MF CMakeFiles/cjson.dir/cJSON.c.o.d -o CMakeFiles/cjson.dir/cJSON.c.o -c /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-src/cJSON.c
 
 _deps/cjson-build/CMakeFiles/cjson.dir/cJSON.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/cjson.dir/cJSON.c.i"
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-src/cJSON.c > CMakeFiles/cjson.dir/cJSON.c.i
+	cd /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-src/cJSON.c > CMakeFiles/cjson.dir/cJSON.c.i
 
 _deps/cjson-build/CMakeFiles/cjson.dir/cJSON.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/cjson.dir/cJSON.c.s"
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-src/cJSON.c -o CMakeFiles/cjson.dir/cJSON.c.s
+	cd /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build && /usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-src/cJSON.c -o CMakeFiles/cjson.dir/cJSON.c.s
 
 # Object files for target cjson
 cjson_OBJECTS = \
@@ -96,19 +96,19 @@ cjson_EXTERNAL_OBJECTS =
 _deps/cjson-build/libcjson.a: _deps/cjson-build/CMakeFiles/cjson.dir/cJSON.c.o
 _deps/cjson-build/libcjson.a: _deps/cjson-build/CMakeFiles/cjson.dir/build.make
 _deps/cjson-build/libcjson.a: _deps/cjson-build/CMakeFiles/cjson.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C static library libcjson.a"
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build && $(CMAKE_COMMAND) -P CMakeFiles/cjson.dir/cmake_clean_target.cmake
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cjson.dir/link.txt --verbose=$(VERBOSE)
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ethanc/Documents/liked-song-memories/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking C static library libcjson.a"
+	cd /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build && $(CMAKE_COMMAND) -P CMakeFiles/cjson.dir/cmake_clean_target.cmake
+	cd /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build && $(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/cjson.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
 _deps/cjson-build/CMakeFiles/cjson.dir/build: _deps/cjson-build/libcjson.a
 .PHONY : _deps/cjson-build/CMakeFiles/cjson.dir/build
 
 _deps/cjson-build/CMakeFiles/cjson.dir/clean:
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build && $(CMAKE_COMMAND) -P CMakeFiles/cjson.dir/cmake_clean.cmake
+	cd /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build && $(CMAKE_COMMAND) -P CMakeFiles/cjson.dir/cmake_clean.cmake
 .PHONY : _deps/cjson-build/CMakeFiles/cjson.dir/clean
 
 _deps/cjson-build/CMakeFiles/cjson.dir/depend:
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ethancaffrey/Documents/liked-song-memories /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-src /Users/ethancaffrey/Documents/liked-song-memories/build /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/CMakeFiles/cjson.dir/DependInfo.cmake "--color=$(COLOR)" cjson
+	cd /home/ethanc/Documents/liked-song-memories/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ethanc/Documents/liked-song-memories /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-src /home/ethanc/Documents/liked-song-memories/build /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build/CMakeFiles/cjson.dir/DependInfo.cmake "--color=$(COLOR)" cjson
 .PHONY : _deps/cjson-build/CMakeFiles/cjson.dir/depend
 

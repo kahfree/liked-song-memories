@@ -1,152 +1,246 @@
-#include "cJSON.h"
-#include <arpa/inet.h>
-#include <curl/curl.h>
-#include <netinet/in.h>
-#include <notcurses/notcurses.h>
+#define _POSIX_C_SOURCE 200809L
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <sys/socket.h>
 #include <unistd.h>
-#define PORT 8080
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <curl/curl.h>
+#include <cJSON.h>
+#include <notcurses/notcurses.h>
+#include "main_functions.h"
 
-// Your existing code and structures...
-struct MemoryStruct {
-  char *data;
-  size_t size;
-};
+// Add download_image function to download images using CURL
+int download_image(const char *filename, const char *url) {
+  CURL *curl;
+  FILE *fp;
+  CURLcode res;
+  
+  curl = curl_easy_init();
+  if (!curl) {
+    fprintf(stderr, "CURL init failed\n");
+    return 1;
+  }
+  
+  fp = fopen(filename, "wb");
+  if (!fp) {
+    curl_easy_cleanup(curl);
+    fprintf(stderr, "Failed to open file %s\n", filename);
+    return 1;
+  }
+  
+  curl_easy_setopt(curl, CURLOPT_URL, url);
+  curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, NULL); // Default write function
+  curl_easy_setopt(curl, CURLOPT_WRITEDATA, fp);
+  curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, 1L);
+  
+  res = curl_easy_perform(curl);
+  curl_easy_cleanup(curl);
+  fclose(fp);
+  
+  if (res != CURLE_OK) {
+    fprintf(stderr, "curl_easy_perform() failed: %s\n", curl_easy_strerror(res));
+    return 1;
+  }
+  
+  return 0;
+}
 
-// Forward declarations of your existing functions
-size_t write_callback(char *data, size_t size, size_t num_bytes, void *userdata);
-char *base64Encoder(char input_str[], int len_str);
-CURLcode perform_curl_request(char *url, char *opts, struct curl_slist *headers,
-                              struct MemoryStruct *chunk, char *errbuf,
-                              long isPost);
-void perform_initial_auth_request(char *opts);
-void parse_auth_code(char *buffer, char *code);
-void open_socket_for_auth_code(char *buffer);
-cJSON *parse_json_response(CURLcode response_code,
-                           struct MemoryStruct *raw_response, char *errbuf);
+// Function declarations
+void display_songs_with_inline_art(cJSON *liked_songs, struct notcurses *nc);
 
-// New TUI function to display songs
-void display_songs_tui(cJSON *batch, struct notcurses *nc) {
+// Main function for the TUI application
+int main(int argc, char *argv[]) {
+  // Initialize notcurses
+  struct notcurses_options opts = {
+    .flags = NCOPTION_INHIBIT_SETLOCALE,
+  };
+  
+  struct notcurses* nc = notcurses_init(&opts, stdout);
+  if (nc == NULL) {
+    fprintf(stderr, "Failed to initialize notcurses\n");
+    return 1;
+  }
+  
+  // TODO: Implement Spotify API auth flow and fetch liked songs
+  // For now, we'll use a simple placeholder JSON
+  const char* sample_json = 
+    "{"
+    "  \"items\": ["
+    "    {"
+    "      \"track\": {"
+    "        \"name\": \"Sample Track 1\","
+    "        \"artists\": [{ \"name\": \"Artist 1\" }],"
+    "        \"album\": {"
+    "          \"name\": \"Album 1\","
+    "          \"images\": [{ \"url\": \"https://via.placeholder.com/300\" }]"
+    "        }"
+    "      }"
+    "    },"
+    "    {"
+    "      \"track\": {"
+    "        \"name\": \"Sample Track 2\","
+    "        \"artists\": [{ \"name\": \"Artist 2\" }],"
+    "        \"album\": {"
+    "          \"name\": \"Album 2\","
+    "          \"images\": [{ \"url\": \"https://via.placeholder.com/300\" }]"
+    "        }"
+    "      }"
+    "    }"
+    "  ]"
+    "}";
+  
+  cJSON* liked_songs = cJSON_Parse(sample_json);
+  if (liked_songs == NULL) {
+    fprintf(stderr, "Failed to parse sample JSON\n");
+    notcurses_stop(nc);
+    return 1;
+  }
+  
+  // Display the songs
+  display_songs_with_inline_art(liked_songs, nc);
+  
+  // Wait for user input
+  struct ncplane* std = notcurses_stdplane(nc);
+  ncinput in;
+  while (notcurses_get_nblock(nc, &in)) {
+    if (in.id == 'q') {
+      break;
+    }
+  }
+  
+  // Cleanup
+  cJSON_Delete(liked_songs);
+  notcurses_stop(nc);
+  
+  return 0;
+}
+
+// NEW: Improved display function with larger images and better layout
+void display_songs_with_inline_art(cJSON *liked_songs, struct notcurses *nc) {
   struct ncplane *n = notcurses_stdplane(nc);
-  if (!n) return;
   
-  cJSON *items = cJSON_GetObjectItemCaseSensitive(batch, "items");
-  cJSON *item = NULL;
+  // Clear the screen
+  notcurses_drop_planes(nc);
+  
+  // Get terminal dimensions
+  int term_rows, term_cols;
+  ncplane_dim_yx(n, &term_rows, &term_cols);
+  
+  // Print header
   int row = 0;
+  ncplane_putstr_yx(n, row++, 0, "╔═══════════════════════════════════════════════════════════════════════════════════════════════════╗");
+  ncplane_putstr_yx(n, row++, 0, "║                              SPOTIFY LIKED SONGS                                            ║");
+  ncplane_putstr_yx(n, row++, 0, "╠════╦════════════════════════════════════════════════════════════════════╦═════════════════════════╣");
+  ncplane_putstr_yx(n, row++, 0, "║ #  ║ Track / Artist                                        ║ Album Art                 ║");
+  ncplane_putstr_yx(n, row++, 0, "╠════╬════════════════════════════════════════════════════════════════════╬═════════════════════════╣");
   
-  ncplane_putstr(n, "Your Liked Spotify Songs:");
-  row += 2;
+  cJSON *items = cJSON_GetObjectItem(liked_songs, "items");
+  if (!items) {
+    ncplane_putstr_yx(n, row++, 1, "No items found");
+    notcurses_render(nc);
+    return;
+  }
   
-  cJSON_ArrayForEach(item, items) {
-    if (item != NULL && row < 20) { // Limit to 20 rows for demo
-      cJSON *added_at = cJSON_GetObjectItemCaseSensitive(item, "added_at");
-      cJSON *track = cJSON_GetObjectItemCaseSensitive(item, "track");
-      if (track != NULL) {
-        cJSON *artist = cJSON_GetObjectItemCaseSensitive(track, "artists")->child;
-        cJSON *track_name = cJSON_GetObjectItemCaseSensitive(track, "name");
-        if (artist != NULL) {
-          cJSON *artist_name = cJSON_GetObjectItemCaseSensitive(artist, "name");
-          char song_info[256];
-          sprintf(song_info, "%s - %s (%s)", artist_name->valuestring, 
-                  track_name->valuestring, added_at->valuestring);
-          ncplane_putstr_yx(n, row++, 0, song_info);
+  int display_count = (term_rows > 15) ? 10 : 5;
+  
+  // Display each song
+  for (int i = 0; i < display_count && i < cJSON_GetArraySize(items); i++) {
+    cJSON *track_item = cJSON_GetArrayItem(items, i);
+    cJSON *track = cJSON_GetObjectItem(track_item, "track");
+    
+    if (!track) continue;
+    
+    // Get track info
+    cJSON *name = cJSON_GetObjectItem(track, "name");
+    cJSON *artists = cJSON_GetObjectItem(track, "artists");
+    cJSON *album = cJSON_GetObjectItem(track, "album");
+    cJSON *images = cJSON_GetObjectItem(album, "images");
+    
+    // Format track number and name
+    char track_line[60] = {0};
+    snprintf(track_line, sizeof(track_line), "║ %2d ║ %-55s ║", 
+             i + 1, name ? name->valuestring : "Unknown");
+    ncplane_putstr_yx(n, row, 0, track_line);
+    
+    // Artist name on next line
+    char artist_line[60] = {0};
+    if (artists && cJSON_GetArraySize(artists) > 0) {
+      cJSON *first_artist = cJSON_GetArrayItem(artists, 0);
+      cJSON *artist_name = cJSON_GetObjectItem(first_artist, "name");
+      if (artist_name && artist_name->valuestring) {
+        snprintf(artist_line, sizeof(artist_line), "║    ║ %-55s ║", artist_name->valuestring);
+      } else {
+        snprintf(artist_line, sizeof(artist_line), "║    ║ %-55s ║", "Unknown Artist");
+      }
+    } else {
+      snprintf(artist_line, sizeof(artist_line), "║    ║ %-55s ║", "Unknown Artist");
+    }
+    ncplane_putstr_yx(n, row + 1, 0, artist_line);
+    
+    // Download and display album art
+    if (images && cJSON_GetArraySize(images) > 0) {
+      // Get the first (largest) image for better quality
+      cJSON *img = cJSON_GetArrayItem(images, 0);
+      cJSON *url = cJSON_GetObjectItem(img, "url");
+      
+      if (url && url->valuestring) {
+        // Download to temp file
+        char temp_file[] = "/tmp/spotify_art_XXXXXX.jpg";
+        int fd = mkstemp(temp_file);
+        if (fd >= 0) {
+          close(fd);
+          
+          if (download_image(temp_file, url->valuestring) == 0) {
+            // Load the image
+            struct ncvisual *ncv = ncvisual_from_file(temp_file);
+            if (ncv) {
+              // Create a LARGER image plane for better quality
+              struct ncplane_options nopts = {
+                .y = row,
+                .x = 78,  // Position in the album art column
+                .rows = 8,   // Larger height
+                .cols = 20,  // Larger width
+                .userptr = NULL,
+                .name = "imageplane",
+                .resizecb = NULL,
+                .flags = 0,
+                .margin_b = 0,
+                .margin_r = 0,
+              };
+              
+              struct ncplane *image_plane = ncplane_create(n, &nopts);
+              if (image_plane) {
+                // Resize to match the plane size for better quality
+                ncvisual_resize(ncv, 8, 20);
+                struct ncvisual_options vopts = {
+                  .n = image_plane,
+                  .flags = 0,
+                  .scaling = NCSCALE_STRETCH,  // Stretch to fill the plane
+                  .blitter = NCBLIT_PIXEL,
+                  .y = 0,
+                  .x = 0,
+                };
+                ncvisual_blit(nc, ncv, &vopts);
+              }
+              ncvisual_destroy(ncv);
+            }
+            unlink(temp_file);
+          }
         }
       }
     }
+    
+    // Draw separator line
+    ncplane_putstr_yx(n, row + 2, 0, "╠════╬════════════════════════════════════════════════════════════════════╬═════════════════════════╣");
+    
+    row += 3;  // Move to next song (3 rows per song: name, artist, separator)
   }
   
-  ncplane_putstr_yx(n, row + 1, 0, "Press 'q' to quit");
+  // Draw table footer
+  ncplane_putstr_yx(n, row, 0, "╚════╩════════════════════════════════════════════════════════════════════╩═════════════════════════╝");
+  ncplane_putstr_yx(n, row + 1, 0, "Press 'q' to quit. Album art is being downloaded and displayed...");
+  
   notcurses_render(nc);
-}
-
-int main(const int argc, char *argv[]) {
-  // Check arg amount
-  if (argc != 3) {
-    printf("Supply client ID & client secret");
-    return -1;
-  }
-  
-  // Initialize notcurses
-  struct notcurses *nc = notcurses_init(NULL, stdout);
-  if (!nc) {
-    fprintf(stderr, "Failed to initialize notcurses\n");
-    return -1;
-  }
-  
-  // Your existing code...
-  char *client_id = argv[1];
-  char *client_secret = argv[2];
-  
-  char token_opts[150] = {0};
-  int token_opts_result = sprintf(
-      token_opts,
-      "client_id=%s&response_type=code&scope=user-library-read&redirect_uri=http://127.0.0.1:8080",
-      client_id);
-  
-  perform_initial_auth_request(token_opts);
-  
-  char buffer[1024] = {0};
-  open_socket_for_auth_code(buffer);
-  
-  char auth_code[300] = {0};
-  parse_auth_code(buffer, auth_code);
-  
-  char args_to_base64_encode[66] = {0};
-  sprintf(args_to_base64_encode, "%s:%s", client_id, client_secret);
-  
-  struct curl_slist *hs = NULL;
-  hs = curl_slist_append(hs, "Content-Type: application/x-www-form-urlencoded");
-  struct curl_slist *temp22 = NULL;
-  char authorization_header[300] = {0};
-  sprintf(authorization_header, "Authorization: Basic %s",
-          base64Encoder(args_to_base64_encode, 65));
-  temp22 = curl_slist_append(hs, authorization_header);
-  
-  char new_opts[300] = {0};
-  sprintf(new_opts,
-          "grant_type=authorization_code&code=%s&redirect_uri=http://"
-          "127.0.0.1:8080",
-          auth_code);
-  struct MemoryStruct chunk = {};
-  char errbuf[CURL_ERROR_SIZE];
-  CURLcode curl_request_result =
-      perform_curl_request("https://accounts.spotify.com/api/token", new_opts,
-                          hs, &chunk, errbuf, 1L);
-  cJSON *parsed_json_response =
-      parse_json_response(curl_request_result, &chunk, errbuf);
-  
-  if (parsed_json_response == NULL) {
-    printf("Empty response\n");
-    notcurses_stop(nc);
-    return -1;
-  } else {
-    char *access_token = parsed_json_response->child->valuestring;
-    
-    struct curl_slist *user_headers = NULL;
-    char access_token_header[300] = {0};
-    sprintf(access_token_header, "Authorization: Bearer %s", access_token);
-    user_headers = curl_slist_append(user_headers, access_token_header);
-    
-    struct MemoryStruct chunk3 = {};
-    curl_request_result = perform_curl_request("https://api.spotify.com/v1/me/tracks?offset=0&limit=50&market=IE", NULL, user_headers, &chunk, errbuf, 0L);
-    cJSON *liked_songs = parse_json_response(curl_request_result, &chunk, errbuf);
-    
-    if (liked_songs) {
-      // Display songs using TUI
-      display_songs_tui(liked_songs, nc);
-      
-      // Wait for user to press 'q'
-      while (getchar() != 'q') {
-        // You can add more interactive features here
-      }
-      
-      cJSON_Delete(liked_songs);
-    }
-  }
-  
-  notcurses_stop(nc);
-  return 0;
 }

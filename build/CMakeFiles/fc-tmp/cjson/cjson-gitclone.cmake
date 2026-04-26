@@ -3,11 +3,11 @@
 
 cmake_minimum_required(VERSION ${CMAKE_VERSION}) # this file comes with cmake
 
-if(EXISTS "/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitclone-lastrun.txt" AND EXISTS "/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitinfo.txt" AND
-  "/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitclone-lastrun.txt" IS_NEWER_THAN "/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitinfo.txt")
+if(EXISTS "/home/ethanc/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitclone-lastrun.txt" AND EXISTS "/home/ethanc/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitinfo.txt" AND
+  "/home/ethanc/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitclone-lastrun.txt" IS_NEWER_THAN "/home/ethanc/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitinfo.txt")
   message(VERBOSE
     "Avoiding repeated git clone, stamp file is up to date: "
-    "'/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitclone-lastrun.txt'"
+    "'/home/ethanc/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitclone-lastrun.txt'"
   )
   return()
 endif()
@@ -22,12 +22,12 @@ else()
 endif()
 
 execute_process(
-  COMMAND ${CMAKE_COMMAND} -E rm -rf "/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-src"
+  COMMAND ${CMAKE_COMMAND} -E rm -rf "/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-src"
   RESULT_VARIABLE error_code
   ${maybe_show_command}
 )
 if(error_code)
-  message(FATAL_ERROR "Failed to remove directory: '/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-src'")
+  message(FATAL_ERROR "Failed to remove directory: '/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-src'")
 endif()
 
 # try the clone 3 times in case there is an odd git clone issue
@@ -35,9 +35,9 @@ set(error_code 1)
 set(number_of_tries 0)
 while(error_code AND number_of_tries LESS 3)
   execute_process(
-    COMMAND "/opt/homebrew/bin/git"
+    COMMAND "/usr/bin/git"
             clone --no-checkout --config "advice.detachedHead=false" "https://github.com/DaveGamble/cJSON.git" "cjson-src"
-    WORKING_DIRECTORY "/Users/ethancaffrey/Documents/liked-song-memories/build/_deps"
+    WORKING_DIRECTORY "/home/ethanc/Documents/liked-song-memories/build/_deps"
     RESULT_VARIABLE error_code
     ${maybe_show_command}
   )
@@ -51,9 +51,9 @@ if(error_code)
 endif()
 
 execute_process(
-  COMMAND "/opt/homebrew/bin/git"
+  COMMAND "/usr/bin/git"
           checkout "v1.7.18" --
-  WORKING_DIRECTORY "/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-src"
+  WORKING_DIRECTORY "/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-src"
   RESULT_VARIABLE error_code
   ${maybe_show_command}
 )
@@ -64,24 +64,24 @@ endif()
 set(init_submodules TRUE)
 if(init_submodules)
   execute_process(
-    COMMAND "/opt/homebrew/bin/git" 
+    COMMAND "/usr/bin/git" 
             submodule update --recursive --init 
-    WORKING_DIRECTORY "/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-src"
+    WORKING_DIRECTORY "/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-src"
     RESULT_VARIABLE error_code
     ${maybe_show_command}
   )
 endif()
 if(error_code)
-  message(FATAL_ERROR "Failed to update submodules in: '/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-src'")
+  message(FATAL_ERROR "Failed to update submodules in: '/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-src'")
 endif()
 
 # Complete success, update the script-last-run stamp file:
 #
 execute_process(
-  COMMAND ${CMAKE_COMMAND} -E copy "/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitinfo.txt" "/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitclone-lastrun.txt"
+  COMMAND ${CMAKE_COMMAND} -E copy "/home/ethanc/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitinfo.txt" "/home/ethanc/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitclone-lastrun.txt"
   RESULT_VARIABLE error_code
   ${maybe_show_command}
 )
 if(error_code)
-  message(FATAL_ERROR "Failed to copy script-last-run stamp file: '/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitclone-lastrun.txt'")
+  message(FATAL_ERROR "Failed to copy script-last-run stamp file: '/home/ethanc/Documents/liked-song-memories/build/CMakeFiles/fc-stamp/cjson/cjson-gitclone-lastrun.txt'")
 endif()

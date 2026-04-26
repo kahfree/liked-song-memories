@@ -44,19 +44,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/homebrew/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /opt/homebrew/bin/cmake -E rm -f
+RM = /usr/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/ethancaffrey/Documents/liked-song-memories
+CMAKE_SOURCE_DIR = /home/ethanc/Documents/liked-song-memories
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ethancaffrey/Documents/liked-song-memories/build
+CMAKE_BINARY_DIR = /home/ethanc/Documents/liked-song-memories/build
 
 # Utility rule file for uninstall.
 
@@ -67,7 +67,7 @@ include _deps/cjson-build/CMakeFiles/uninstall.dir/compiler_depend.make
 include _deps/cjson-build/CMakeFiles/uninstall.dir/progress.make
 
 _deps/cjson-build/CMakeFiles/uninstall:
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build && /opt/homebrew/bin/cmake -P /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-src/library_config/uninstall.cmake
+	cd /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build && /usr/bin/cmake -P /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-src/library_config/uninstall.cmake
 
 _deps/cjson-build/CMakeFiles/uninstall.dir/codegen:
 .PHONY : _deps/cjson-build/CMakeFiles/uninstall.dir/codegen
@@ -81,10 +81,10 @@ _deps/cjson-build/CMakeFiles/uninstall.dir/build: uninstall
 .PHONY : _deps/cjson-build/CMakeFiles/uninstall.dir/build
 
 _deps/cjson-build/CMakeFiles/uninstall.dir/clean:
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build && $(CMAKE_COMMAND) -P CMakeFiles/uninstall.dir/cmake_clean.cmake
+	cd /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build && $(CMAKE_COMMAND) -P CMakeFiles/uninstall.dir/cmake_clean.cmake
 .PHONY : _deps/cjson-build/CMakeFiles/uninstall.dir/clean
 
 _deps/cjson-build/CMakeFiles/uninstall.dir/depend:
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ethancaffrey/Documents/liked-song-memories /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-src /Users/ethancaffrey/Documents/liked-song-memories/build /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/CMakeFiles/uninstall.dir/DependInfo.cmake "--color=$(COLOR)" uninstall
+	cd /home/ethanc/Documents/liked-song-memories/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ethanc/Documents/liked-song-memories /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-src /home/ethanc/Documents/liked-song-memories/build /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build/CMakeFiles/uninstall.dir/DependInfo.cmake "--color=$(COLOR)" uninstall
 .PHONY : _deps/cjson-build/CMakeFiles/uninstall.dir/depend
 

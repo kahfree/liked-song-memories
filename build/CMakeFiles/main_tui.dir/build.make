@@ -44,19 +44,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/homebrew/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /opt/homebrew/bin/cmake -E rm -f
+RM = /usr/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/ethancaffrey/Documents/liked-song-memories
+CMAKE_SOURCE_DIR = /home/ethanc/Documents/liked-song-memories
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ethancaffrey/Documents/liked-song-memories/build
+CMAKE_BINARY_DIR = /home/ethanc/Documents/liked-song-memories/build
 
 # Include any dependencies generated for this target.
 include CMakeFiles/main_tui.dir/depend.make
@@ -72,47 +72,50 @@ include CMakeFiles/main_tui.dir/flags.make
 CMakeFiles/main_tui.dir/codegen:
 .PHONY : CMakeFiles/main_tui.dir/codegen
 
-CMakeFiles/main_tui.dir/main_tui_integration.c.o: CMakeFiles/main_tui.dir/flags.make
-CMakeFiles/main_tui.dir/main_tui_integration.c.o: /Users/ethancaffrey/Documents/liked-song-memories/main_tui_integration.c
-CMakeFiles/main_tui.dir/main_tui_integration.c.o: CMakeFiles/main_tui.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/main_tui.dir/main_tui_integration.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_tui.dir/main_tui_integration.c.o -MF CMakeFiles/main_tui.dir/main_tui_integration.c.o.d -o CMakeFiles/main_tui.dir/main_tui_integration.c.o -c /Users/ethancaffrey/Documents/liked-song-memories/main_tui_integration.c
+CMakeFiles/main_tui.dir/main_tui.c.o: CMakeFiles/main_tui.dir/flags.make
+CMakeFiles/main_tui.dir/main_tui.c.o: /home/ethanc/Documents/liked-song-memories/main_tui.c
+CMakeFiles/main_tui.dir/main_tui.c.o: CMakeFiles/main_tui.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ethanc/Documents/liked-song-memories/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/main_tui.dir/main_tui.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_tui.dir/main_tui.c.o -MF CMakeFiles/main_tui.dir/main_tui.c.o.d -o CMakeFiles/main_tui.dir/main_tui.c.o -c /home/ethanc/Documents/liked-song-memories/main_tui.c
 
-CMakeFiles/main_tui.dir/main_tui_integration.c.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_tui.dir/main_tui_integration.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ethancaffrey/Documents/liked-song-memories/main_tui_integration.c > CMakeFiles/main_tui.dir/main_tui_integration.c.i
+CMakeFiles/main_tui.dir/main_tui.c.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_tui.dir/main_tui.c.i"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanc/Documents/liked-song-memories/main_tui.c > CMakeFiles/main_tui.dir/main_tui.c.i
 
-CMakeFiles/main_tui.dir/main_tui_integration.c.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_tui.dir/main_tui_integration.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ethancaffrey/Documents/liked-song-memories/main_tui_integration.c -o CMakeFiles/main_tui.dir/main_tui_integration.c.s
+CMakeFiles/main_tui.dir/main_tui.c.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_tui.dir/main_tui.c.s"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanc/Documents/liked-song-memories/main_tui.c -o CMakeFiles/main_tui.dir/main_tui.c.s
 
 CMakeFiles/main_tui.dir/main_functions.c.o: CMakeFiles/main_tui.dir/flags.make
-CMakeFiles/main_tui.dir/main_functions.c.o: /Users/ethancaffrey/Documents/liked-song-memories/main_functions.c
+CMakeFiles/main_tui.dir/main_functions.c.o: /home/ethanc/Documents/liked-song-memories/main_functions.c
 CMakeFiles/main_tui.dir/main_functions.c.o: CMakeFiles/main_tui.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/main_tui.dir/main_functions.c.o"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_tui.dir/main_functions.c.o -MF CMakeFiles/main_tui.dir/main_functions.c.o.d -o CMakeFiles/main_tui.dir/main_functions.c.o -c /Users/ethancaffrey/Documents/liked-song-memories/main_functions.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/ethanc/Documents/liked-song-memories/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/main_tui.dir/main_functions.c.o"
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/main_tui.dir/main_functions.c.o -MF CMakeFiles/main_tui.dir/main_functions.c.o.d -o CMakeFiles/main_tui.dir/main_functions.c.o -c /home/ethanc/Documents/liked-song-memories/main_functions.c
 
 CMakeFiles/main_tui.dir/main_functions.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing C source to CMakeFiles/main_tui.dir/main_functions.c.i"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /Users/ethancaffrey/Documents/liked-song-memories/main_functions.c > CMakeFiles/main_tui.dir/main_functions.c.i
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /home/ethanc/Documents/liked-song-memories/main_functions.c > CMakeFiles/main_tui.dir/main_functions.c.i
 
 CMakeFiles/main_tui.dir/main_functions.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling C source to assembly CMakeFiles/main_tui.dir/main_functions.c.s"
-	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /Users/ethancaffrey/Documents/liked-song-memories/main_functions.c -o CMakeFiles/main_tui.dir/main_functions.c.s
+	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /home/ethanc/Documents/liked-song-memories/main_functions.c -o CMakeFiles/main_tui.dir/main_functions.c.s
 
 # Object files for target main_tui
 main_tui_OBJECTS = \
-"CMakeFiles/main_tui.dir/main_tui_integration.c.o" \
+"CMakeFiles/main_tui.dir/main_tui.c.o" \
 "CMakeFiles/main_tui.dir/main_functions.c.o"
 
 # External object files for target main_tui
 main_tui_EXTERNAL_OBJECTS =
 
-main_tui: CMakeFiles/main_tui.dir/main_tui_integration.c.o
+main_tui: CMakeFiles/main_tui.dir/main_tui.c.o
 main_tui: CMakeFiles/main_tui.dir/main_functions.c.o
 main_tui: CMakeFiles/main_tui.dir/build.make
+main_tui: CMakeFiles/main_tui.dir/compiler_depend.ts
+main_tui: /usr/lib/libcurl.so
+main_tui: _deps/cjson-build/libcjson.a
 main_tui: CMakeFiles/main_tui.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable main_tui"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/ethanc/Documents/liked-song-memories/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking C executable main_tui"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/main_tui.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -124,6 +127,6 @@ CMakeFiles/main_tui.dir/clean:
 .PHONY : CMakeFiles/main_tui.dir/clean
 
 CMakeFiles/main_tui.dir/depend:
-	cd /Users/ethancaffrey/Documents/liked-song-memories/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /Users/ethancaffrey/Documents/liked-song-memories /Users/ethancaffrey/Documents/liked-song-memories /Users/ethancaffrey/Documents/liked-song-memories/build /Users/ethancaffrey/Documents/liked-song-memories/build /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles/main_tui.dir/DependInfo.cmake "--color=$(COLOR)" main_tui
+	cd /home/ethanc/Documents/liked-song-memories/build && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/ethanc/Documents/liked-song-memories /home/ethanc/Documents/liked-song-memories /home/ethanc/Documents/liked-song-memories/build /home/ethanc/Documents/liked-song-memories/build /home/ethanc/Documents/liked-song-memories/build/CMakeFiles/main_tui.dir/DependInfo.cmake "--color=$(COLOR)" main_tui
 .PHONY : CMakeFiles/main_tui.dir/depend
 

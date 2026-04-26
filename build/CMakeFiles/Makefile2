@@ -45,40 +45,32 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/homebrew/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /opt/homebrew/bin/cmake -E rm -f
+RM = /usr/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/ethancaffrey/Documents/liked-song-memories
+CMAKE_SOURCE_DIR = /home/ethanc/Documents/liked-song-memories
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ethancaffrey/Documents/liked-song-memories/build
+CMAKE_BINARY_DIR = /home/ethanc/Documents/liked-song-memories/build
 
 #=============================================================================
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
 all: CMakeFiles/liked_song_memories.dir/all
-all: CMakeFiles/tui_example.dir/all
 all: CMakeFiles/main_tui.dir/all
-all: CMakeFiles/main_tui_table.dir/all
-all: CMakeFiles/main_tui_clean.dir/all
-all: CMakeFiles/main_tui_inline_art.dir/all
 all: _deps/cjson-build/all
 .PHONY : all
 
 # The main recursive "codegen" target.
 codegen: CMakeFiles/liked_song_memories.dir/codegen
-codegen: CMakeFiles/tui_example.dir/codegen
 codegen: CMakeFiles/main_tui.dir/codegen
-codegen: CMakeFiles/main_tui_table.dir/codegen
-codegen: CMakeFiles/main_tui_clean.dir/codegen
-codegen: CMakeFiles/main_tui_inline_art.dir/codegen
 codegen: _deps/cjson-build/codegen
 .PHONY : codegen
 
@@ -88,11 +80,7 @@ preinstall: _deps/cjson-build/preinstall
 
 # The main recursive "clean" target.
 clean: CMakeFiles/liked_song_memories.dir/clean
-clean: CMakeFiles/tui_example.dir/clean
 clean: CMakeFiles/main_tui.dir/clean
-clean: CMakeFiles/main_tui_table.dir/clean
-clean: CMakeFiles/main_tui_clean.dir/clean
-clean: CMakeFiles/main_tui_inline_art.dir/clean
 clean: _deps/cjson-build/clean
 .PHONY : clean
 
@@ -168,14 +156,14 @@ _deps/cjson-build/tests/clean:
 CMakeFiles/liked_song_memories.dir/all: _deps/cjson-build/CMakeFiles/cjson.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/liked_song_memories.dir/build.make CMakeFiles/liked_song_memories.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/liked_song_memories.dir/build.make CMakeFiles/liked_song_memories.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=3,4 "Built target liked_song_memories"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ethanc/Documents/liked-song-memories/build/CMakeFiles --progress-num=3,4 "Built target liked_song_memories"
 .PHONY : CMakeFiles/liked_song_memories.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/liked_song_memories.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/liked_song_memories.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles 0
 .PHONY : CMakeFiles/liked_song_memories.dir/rule
 
 # Convenience name for target.
@@ -185,7 +173,7 @@ liked_song_memories: CMakeFiles/liked_song_memories.dir/rule
 # codegen rule for target.
 CMakeFiles/liked_song_memories.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/liked_song_memories.dir/build.make CMakeFiles/liked_song_memories.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=3,4 "Finished codegen for target liked_song_memories"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ethanc/Documents/liked-song-memories/build/CMakeFiles --progress-num=3,4 "Finished codegen for target liked_song_memories"
 .PHONY : CMakeFiles/liked_song_memories.dir/codegen
 
 # clean rule for target.
@@ -194,52 +182,20 @@ CMakeFiles/liked_song_memories.dir/clean:
 .PHONY : CMakeFiles/liked_song_memories.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/tui_example.dir
-
-# All Build rule for target.
-CMakeFiles/tui_example.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tui_example.dir/build.make CMakeFiles/tui_example.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tui_example.dir/build.make CMakeFiles/tui_example.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=17,18 "Built target tui_example"
-.PHONY : CMakeFiles/tui_example.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/tui_example.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 2
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/tui_example.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 0
-.PHONY : CMakeFiles/tui_example.dir/rule
-
-# Convenience name for target.
-tui_example: CMakeFiles/tui_example.dir/rule
-.PHONY : tui_example
-
-# codegen rule for target.
-CMakeFiles/tui_example.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tui_example.dir/build.make CMakeFiles/tui_example.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=17,18 "Finished codegen for target tui_example"
-.PHONY : CMakeFiles/tui_example.dir/codegen
-
-# clean rule for target.
-CMakeFiles/tui_example.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tui_example.dir/build.make CMakeFiles/tui_example.dir/clean
-.PHONY : CMakeFiles/tui_example.dir/clean
-
-#=============================================================================
 # Target rules for target CMakeFiles/main_tui.dir
 
 # All Build rule for target.
-CMakeFiles/main_tui.dir/all:
+CMakeFiles/main_tui.dir/all: _deps/cjson-build/CMakeFiles/cjson.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui.dir/build.make CMakeFiles/main_tui.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui.dir/build.make CMakeFiles/main_tui.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=5,6,7 "Built target main_tui"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ethanc/Documents/liked-song-memories/build/CMakeFiles --progress-num=5,6,7 "Built target main_tui"
 .PHONY : CMakeFiles/main_tui.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/main_tui.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/main_tui.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles 0
 .PHONY : CMakeFiles/main_tui.dir/rule
 
 # Convenience name for target.
@@ -249,7 +205,7 @@ main_tui: CMakeFiles/main_tui.dir/rule
 # codegen rule for target.
 CMakeFiles/main_tui.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui.dir/build.make CMakeFiles/main_tui.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=5,6,7 "Finished codegen for target main_tui"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ethanc/Documents/liked-song-memories/build/CMakeFiles --progress-num=5,6,7 "Finished codegen for target main_tui"
 .PHONY : CMakeFiles/main_tui.dir/codegen
 
 # clean rule for target.
@@ -258,116 +214,20 @@ CMakeFiles/main_tui.dir/clean:
 .PHONY : CMakeFiles/main_tui.dir/clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/main_tui_table.dir
-
-# All Build rule for target.
-CMakeFiles/main_tui_table.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_table.dir/build.make CMakeFiles/main_tui_table.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_table.dir/build.make CMakeFiles/main_tui_table.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=14,15,16 "Built target main_tui_table"
-.PHONY : CMakeFiles/main_tui_table.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/main_tui_table.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 3
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/main_tui_table.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 0
-.PHONY : CMakeFiles/main_tui_table.dir/rule
-
-# Convenience name for target.
-main_tui_table: CMakeFiles/main_tui_table.dir/rule
-.PHONY : main_tui_table
-
-# codegen rule for target.
-CMakeFiles/main_tui_table.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_table.dir/build.make CMakeFiles/main_tui_table.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=14,15,16 "Finished codegen for target main_tui_table"
-.PHONY : CMakeFiles/main_tui_table.dir/codegen
-
-# clean rule for target.
-CMakeFiles/main_tui_table.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_table.dir/build.make CMakeFiles/main_tui_table.dir/clean
-.PHONY : CMakeFiles/main_tui_table.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/main_tui_clean.dir
-
-# All Build rule for target.
-CMakeFiles/main_tui_clean.dir/all: _deps/cjson-build/CMakeFiles/cjson.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_clean.dir/build.make CMakeFiles/main_tui_clean.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_clean.dir/build.make CMakeFiles/main_tui_clean.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=8,9,10 "Built target main_tui_clean"
-.PHONY : CMakeFiles/main_tui_clean.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/main_tui_clean.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 5
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/main_tui_clean.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 0
-.PHONY : CMakeFiles/main_tui_clean.dir/rule
-
-# Convenience name for target.
-main_tui_clean: CMakeFiles/main_tui_clean.dir/rule
-.PHONY : main_tui_clean
-
-# codegen rule for target.
-CMakeFiles/main_tui_clean.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_clean.dir/build.make CMakeFiles/main_tui_clean.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=8,9,10 "Finished codegen for target main_tui_clean"
-.PHONY : CMakeFiles/main_tui_clean.dir/codegen
-
-# clean rule for target.
-CMakeFiles/main_tui_clean.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_clean.dir/build.make CMakeFiles/main_tui_clean.dir/clean
-.PHONY : CMakeFiles/main_tui_clean.dir/clean
-
-#=============================================================================
-# Target rules for target CMakeFiles/main_tui_inline_art.dir
-
-# All Build rule for target.
-CMakeFiles/main_tui_inline_art.dir/all: _deps/cjson-build/CMakeFiles/cjson.dir/all
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_inline_art.dir/build.make CMakeFiles/main_tui_inline_art.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_inline_art.dir/build.make CMakeFiles/main_tui_inline_art.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=11,12,13 "Built target main_tui_inline_art"
-.PHONY : CMakeFiles/main_tui_inline_art.dir/all
-
-# Build rule for subdir invocation for target.
-CMakeFiles/main_tui_inline_art.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 5
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/main_tui_inline_art.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 0
-.PHONY : CMakeFiles/main_tui_inline_art.dir/rule
-
-# Convenience name for target.
-main_tui_inline_art: CMakeFiles/main_tui_inline_art.dir/rule
-.PHONY : main_tui_inline_art
-
-# codegen rule for target.
-CMakeFiles/main_tui_inline_art.dir/codegen:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_inline_art.dir/build.make CMakeFiles/main_tui_inline_art.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=11,12,13 "Finished codegen for target main_tui_inline_art"
-.PHONY : CMakeFiles/main_tui_inline_art.dir/codegen
-
-# clean rule for target.
-CMakeFiles/main_tui_inline_art.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_inline_art.dir/build.make CMakeFiles/main_tui_inline_art.dir/clean
-.PHONY : CMakeFiles/main_tui_inline_art.dir/clean
-
-#=============================================================================
 # Target rules for target _deps/cjson-build/CMakeFiles/cjson.dir
 
 # All Build rule for target.
 _deps/cjson-build/CMakeFiles/cjson.dir/all:
 	$(MAKE) $(MAKESILENT) -f _deps/cjson-build/CMakeFiles/cjson.dir/build.make _deps/cjson-build/CMakeFiles/cjson.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/cjson-build/CMakeFiles/cjson.dir/build.make _deps/cjson-build/CMakeFiles/cjson.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=1,2 "Built target cjson"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ethanc/Documents/liked-song-memories/build/CMakeFiles --progress-num=1,2 "Built target cjson"
 .PHONY : _deps/cjson-build/CMakeFiles/cjson.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/cjson-build/CMakeFiles/cjson.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/cjson-build/CMakeFiles/cjson.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles 0
 .PHONY : _deps/cjson-build/CMakeFiles/cjson.dir/rule
 
 # Convenience name for target.
@@ -377,7 +237,7 @@ cjson: _deps/cjson-build/CMakeFiles/cjson.dir/rule
 # codegen rule for target.
 _deps/cjson-build/CMakeFiles/cjson.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f _deps/cjson-build/CMakeFiles/cjson.dir/build.make _deps/cjson-build/CMakeFiles/cjson.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num=1,2 "Finished codegen for target cjson"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ethanc/Documents/liked-song-memories/build/CMakeFiles --progress-num=1,2 "Finished codegen for target cjson"
 .PHONY : _deps/cjson-build/CMakeFiles/cjson.dir/codegen
 
 # clean rule for target.
@@ -392,14 +252,14 @@ _deps/cjson-build/CMakeFiles/cjson.dir/clean:
 _deps/cjson-build/CMakeFiles/uninstall.dir/all:
 	$(MAKE) $(MAKESILENT) -f _deps/cjson-build/CMakeFiles/uninstall.dir/build.make _deps/cjson-build/CMakeFiles/uninstall.dir/depend
 	$(MAKE) $(MAKESILENT) -f _deps/cjson-build/CMakeFiles/uninstall.dir/build.make _deps/cjson-build/CMakeFiles/uninstall.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num= "Built target uninstall"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ethanc/Documents/liked-song-memories/build/CMakeFiles --progress-num= "Built target uninstall"
 .PHONY : _deps/cjson-build/CMakeFiles/uninstall.dir/all
 
 # Build rule for subdir invocation for target.
 _deps/cjson-build/CMakeFiles/uninstall.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles 0
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 _deps/cjson-build/CMakeFiles/uninstall.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles 0
 .PHONY : _deps/cjson-build/CMakeFiles/uninstall.dir/rule
 
 # Convenience name for target.
@@ -409,7 +269,7 @@ uninstall: _deps/cjson-build/CMakeFiles/uninstall.dir/rule
 # codegen rule for target.
 _deps/cjson-build/CMakeFiles/uninstall.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f _deps/cjson-build/CMakeFiles/uninstall.dir/build.make _deps/cjson-build/CMakeFiles/uninstall.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles --progress-num= "Finished codegen for target uninstall"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/ethanc/Documents/liked-song-memories/build/CMakeFiles --progress-num= "Finished codegen for target uninstall"
 .PHONY : _deps/cjson-build/CMakeFiles/uninstall.dir/codegen
 
 # clean rule for target.

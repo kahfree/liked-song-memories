@@ -1,4 +1,4 @@
-# Install script for directory: /Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-src
+# Install script for directory: /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-src
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -27,6 +27,11 @@ if(NOT CMAKE_INSTALL_COMPONENT)
   endif()
 endif()
 
+# Install shared libraries without execute permission?
+if(NOT DEFINED CMAKE_INSTALL_SO_NO_EXE)
+  set(CMAKE_INSTALL_SO_NO_EXE "0")
+endif()
+
 # Is this installation the result of a crosscompile?
 if(NOT DEFINED CMAKE_CROSSCOMPILING)
   set(CMAKE_CROSSCOMPILING "FALSE")
@@ -46,7 +51,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "/usr/local/include/cjson" TYPE FILE FILES "/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-src/cJSON.h")
+  file(INSTALL DESTINATION "/usr/local/include/cjson" TYPE FILE FILES "/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-src/cJSON.h")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -58,7 +63,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "/usr/local/lib/pkgconfig" TYPE FILE FILES "/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/libcjson.pc")
+  file(INSTALL DESTINATION "/usr/local/lib/pkgconfig" TYPE FILE FILES "/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build/libcjson.pc")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
@@ -70,18 +75,14 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "/usr/local/lib" TYPE STATIC_LIBRARY FILES "/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/libcjson.a")
-  if(EXISTS "$ENV{DESTDIR}/usr/local/lib/libcjson.a" AND
-     NOT IS_SYMLINK "$ENV{DESTDIR}/usr/local/lib/libcjson.a")
-    execute_process(COMMAND "/usr/bin/ranlib" "$ENV{DESTDIR}/usr/local/lib/libcjson.a")
-  endif()
+  file(INSTALL DESTINATION "/usr/local/lib" TYPE STATIC_LIBRARY FILES "/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build/libcjson.a")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT)
   if(EXISTS "$ENV{DESTDIR}/usr/local/lib/cmake/cJSON/cjson.cmake")
     file(DIFFERENT _cmake_export_file_changed FILES
          "$ENV{DESTDIR}/usr/local/lib/cmake/cJSON/cjson.cmake"
-         "/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/CMakeFiles/Export/59718e3b6383dd843be930c99a44fa1d/cjson.cmake")
+         "/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build/CMakeFiles/Export/59718e3b6383dd843be930c99a44fa1d/cjson.cmake")
     if(_cmake_export_file_changed)
       file(GLOB _cmake_old_config_files "$ENV{DESTDIR}/usr/local/lib/cmake/cJSON/cjson-*.cmake")
       if(_cmake_old_config_files)
@@ -102,7 +103,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
   if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
-  file(INSTALL DESTINATION "/usr/local/lib/cmake/cJSON" TYPE FILE FILES "/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/CMakeFiles/Export/59718e3b6383dd843be930c99a44fa1d/cjson.cmake")
+  file(INSTALL DESTINATION "/usr/local/lib/cmake/cJSON" TYPE FILE FILES "/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build/CMakeFiles/Export/59718e3b6383dd843be930c99a44fa1d/cjson.cmake")
   if(CMAKE_INSTALL_CONFIG_NAME MATCHES "^()$")
     list(APPEND CMAKE_ABSOLUTE_DESTINATION_FILES
      "/usr/local/lib/cmake/cJSON/cjson-noconfig.cmake")
@@ -112,7 +113,7 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
     if(CMAKE_ERROR_ON_ABSOLUTE_INSTALL_DESTINATION)
       message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
     endif()
-    file(INSTALL DESTINATION "/usr/local/lib/cmake/cJSON" TYPE FILE FILES "/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/CMakeFiles/Export/59718e3b6383dd843be930c99a44fa1d/cjson-noconfig.cmake")
+    file(INSTALL DESTINATION "/usr/local/lib/cmake/cJSON" TYPE FILE FILES "/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build/CMakeFiles/Export/59718e3b6383dd843be930c99a44fa1d/cjson-noconfig.cmake")
   endif()
 endif()
 
@@ -126,21 +127,21 @@ if(CMAKE_INSTALL_COMPONENT STREQUAL "Unspecified" OR NOT CMAKE_INSTALL_COMPONENT
     message(FATAL_ERROR "ABSOLUTE path INSTALL DESTINATION forbidden (by caller): ${CMAKE_ABSOLUTE_DESTINATION_FILES}")
   endif()
   file(INSTALL DESTINATION "/usr/local/lib/cmake/cJSON" TYPE FILE FILES
-    "/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/cJSONConfig.cmake"
-    "/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/cJSONConfigVersion.cmake"
+    "/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build/cJSONConfig.cmake"
+    "/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build/cJSONConfigVersion.cmake"
     )
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
-  include("/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/tests/cmake_install.cmake")
-  include("/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/fuzzing/cmake_install.cmake")
+  include("/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build/tests/cmake_install.cmake")
+  include("/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build/fuzzing/cmake_install.cmake")
 
 endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
 if(CMAKE_INSTALL_LOCAL_ONLY)
-  file(WRITE "/Users/ethancaffrey/Documents/liked-song-memories/build/_deps/cjson-build/install_local_manifest.txt"
+  file(WRITE "/home/ethanc/Documents/liked-song-memories/build/_deps/cjson-build/install_local_manifest.txt"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")
 endif()

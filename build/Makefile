@@ -48,19 +48,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /opt/homebrew/bin/cmake
+CMAKE_COMMAND = /usr/bin/cmake
 
 # The command to remove a file.
-RM = /opt/homebrew/bin/cmake -E rm -f
+RM = /usr/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /Users/ethancaffrey/Documents/liked-song-memories
+CMAKE_SOURCE_DIR = /home/ethanc/Documents/liked-song-memories
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /Users/ethancaffrey/Documents/liked-song-memories/build
+CMAKE_BINARY_DIR = /home/ethanc/Documents/liked-song-memories/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /Users/ethancaffrey/Documents/liked-song-memories/build
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake cache editor..."
-	/opt/homebrew/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,7 +78,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Running CMake to regenerate build system..."
-	/opt/homebrew/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/usr/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -97,51 +97,51 @@ list_install_components/fast: list_install_components
 # Special rule for the target install
 install: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/opt/homebrew/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install
 
 # Special rule for the target install
 install/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
-	/opt/homebrew/bin/cmake -P cmake_install.cmake
+	/usr/bin/cmake -P cmake_install.cmake
 .PHONY : install/fast
 
 # Special rule for the target install/local
 install/local: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local
 
 # Special rule for the target install/local
 install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
-	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
 
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip
 
 # Special rule for the target install/strip
 install/strip/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
-	/opt/homebrew/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles /Users/ethancaffrey/Documents/liked-song-memories/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles /home/ethanc/Documents/liked-song-memories/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles 0
 .PHONY : all
 
 # The main codegen target
 codegen: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles /Users/ethancaffrey/Documents/liked-song-memories/build//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles /home/ethanc/Documents/liked-song-memories/build//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 codegen
-	$(CMAKE_COMMAND) -E cmake_progress_start /Users/ethancaffrey/Documents/liked-song-memories/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ethanc/Documents/liked-song-memories/build/CMakeFiles 0
 .PHONY : codegen
 
 # The main clean target
@@ -182,19 +182,6 @@ liked_song_memories/fast:
 .PHONY : liked_song_memories/fast
 
 #=============================================================================
-# Target rules for targets named tui_example
-
-# Build rule for target.
-tui_example: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 tui_example
-.PHONY : tui_example
-
-# fast build rule for target.
-tui_example/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tui_example.dir/build.make CMakeFiles/tui_example.dir/build
-.PHONY : tui_example/fast
-
-#=============================================================================
 # Target rules for targets named main_tui
 
 # Build rule for target.
@@ -206,45 +193,6 @@ main_tui: cmake_check_build_system
 main_tui/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui.dir/build.make CMakeFiles/main_tui.dir/build
 .PHONY : main_tui/fast
-
-#=============================================================================
-# Target rules for targets named main_tui_table
-
-# Build rule for target.
-main_tui_table: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main_tui_table
-.PHONY : main_tui_table
-
-# fast build rule for target.
-main_tui_table/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_table.dir/build.make CMakeFiles/main_tui_table.dir/build
-.PHONY : main_tui_table/fast
-
-#=============================================================================
-# Target rules for targets named main_tui_clean
-
-# Build rule for target.
-main_tui_clean: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main_tui_clean
-.PHONY : main_tui_clean
-
-# fast build rule for target.
-main_tui_clean/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_clean.dir/build.make CMakeFiles/main_tui_clean.dir/build
-.PHONY : main_tui_clean/fast
-
-#=============================================================================
-# Target rules for targets named main_tui_inline_art
-
-# Build rule for target.
-main_tui_inline_art: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 main_tui_inline_art
-.PHONY : main_tui_inline_art
-
-# fast build rule for target.
-main_tui_inline_art/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_inline_art.dir/build.make CMakeFiles/main_tui_inline_art.dir/build
-.PHONY : main_tui_inline_art/fast
 
 #=============================================================================
 # Target rules for targets named cjson
@@ -302,9 +250,6 @@ main_functions.o: main_functions.c.o
 # target to build an object file
 main_functions.c.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui.dir/build.make CMakeFiles/main_tui.dir/main_functions.c.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_table.dir/build.make CMakeFiles/main_tui_table.dir/main_functions.c.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_clean.dir/build.make CMakeFiles/main_tui_clean.dir/main_functions.c.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_inline_art.dir/build.make CMakeFiles/main_tui_inline_art.dir/main_functions.c.o
 .PHONY : main_functions.c.o
 
 main_functions.i: main_functions.c.i
@@ -313,9 +258,6 @@ main_functions.i: main_functions.c.i
 # target to preprocess a source file
 main_functions.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui.dir/build.make CMakeFiles/main_tui.dir/main_functions.c.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_table.dir/build.make CMakeFiles/main_tui_table.dir/main_functions.c.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_clean.dir/build.make CMakeFiles/main_tui_clean.dir/main_functions.c.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_inline_art.dir/build.make CMakeFiles/main_tui_inline_art.dir/main_functions.c.i
 .PHONY : main_functions.c.i
 
 main_functions.s: main_functions.c.s
@@ -324,130 +266,31 @@ main_functions.s: main_functions.c.s
 # target to generate assembly for a file
 main_functions.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui.dir/build.make CMakeFiles/main_tui.dir/main_functions.c.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_table.dir/build.make CMakeFiles/main_tui_table.dir/main_functions.c.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_clean.dir/build.make CMakeFiles/main_tui_clean.dir/main_functions.c.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_inline_art.dir/build.make CMakeFiles/main_tui_inline_art.dir/main_functions.c.s
 .PHONY : main_functions.c.s
 
-main_tui_clean.o: main_tui_clean.c.o
-.PHONY : main_tui_clean.o
+main_tui.o: main_tui.c.o
+.PHONY : main_tui.o
 
 # target to build an object file
-main_tui_clean.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_clean.dir/build.make CMakeFiles/main_tui_clean.dir/main_tui_clean.c.o
-.PHONY : main_tui_clean.c.o
+main_tui.c.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui.dir/build.make CMakeFiles/main_tui.dir/main_tui.c.o
+.PHONY : main_tui.c.o
 
-main_tui_clean.i: main_tui_clean.c.i
-.PHONY : main_tui_clean.i
-
-# target to preprocess a source file
-main_tui_clean.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_clean.dir/build.make CMakeFiles/main_tui_clean.dir/main_tui_clean.c.i
-.PHONY : main_tui_clean.c.i
-
-main_tui_clean.s: main_tui_clean.c.s
-.PHONY : main_tui_clean.s
-
-# target to generate assembly for a file
-main_tui_clean.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_clean.dir/build.make CMakeFiles/main_tui_clean.dir/main_tui_clean.c.s
-.PHONY : main_tui_clean.c.s
-
-main_tui_inline_art.o: main_tui_inline_art.c.o
-.PHONY : main_tui_inline_art.o
-
-# target to build an object file
-main_tui_inline_art.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_inline_art.dir/build.make CMakeFiles/main_tui_inline_art.dir/main_tui_inline_art.c.o
-.PHONY : main_tui_inline_art.c.o
-
-main_tui_inline_art.i: main_tui_inline_art.c.i
-.PHONY : main_tui_inline_art.i
+main_tui.i: main_tui.c.i
+.PHONY : main_tui.i
 
 # target to preprocess a source file
-main_tui_inline_art.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_inline_art.dir/build.make CMakeFiles/main_tui_inline_art.dir/main_tui_inline_art.c.i
-.PHONY : main_tui_inline_art.c.i
+main_tui.c.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui.dir/build.make CMakeFiles/main_tui.dir/main_tui.c.i
+.PHONY : main_tui.c.i
 
-main_tui_inline_art.s: main_tui_inline_art.c.s
-.PHONY : main_tui_inline_art.s
-
-# target to generate assembly for a file
-main_tui_inline_art.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_inline_art.dir/build.make CMakeFiles/main_tui_inline_art.dir/main_tui_inline_art.c.s
-.PHONY : main_tui_inline_art.c.s
-
-main_tui_integration.o: main_tui_integration.c.o
-.PHONY : main_tui_integration.o
-
-# target to build an object file
-main_tui_integration.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui.dir/build.make CMakeFiles/main_tui.dir/main_tui_integration.c.o
-.PHONY : main_tui_integration.c.o
-
-main_tui_integration.i: main_tui_integration.c.i
-.PHONY : main_tui_integration.i
-
-# target to preprocess a source file
-main_tui_integration.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui.dir/build.make CMakeFiles/main_tui.dir/main_tui_integration.c.i
-.PHONY : main_tui_integration.c.i
-
-main_tui_integration.s: main_tui_integration.c.s
-.PHONY : main_tui_integration.s
+main_tui.s: main_tui.c.s
+.PHONY : main_tui.s
 
 # target to generate assembly for a file
-main_tui_integration.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui.dir/build.make CMakeFiles/main_tui.dir/main_tui_integration.c.s
-.PHONY : main_tui_integration.c.s
-
-main_tui_table.o: main_tui_table.c.o
-.PHONY : main_tui_table.o
-
-# target to build an object file
-main_tui_table.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_table.dir/build.make CMakeFiles/main_tui_table.dir/main_tui_table.c.o
-.PHONY : main_tui_table.c.o
-
-main_tui_table.i: main_tui_table.c.i
-.PHONY : main_tui_table.i
-
-# target to preprocess a source file
-main_tui_table.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_table.dir/build.make CMakeFiles/main_tui_table.dir/main_tui_table.c.i
-.PHONY : main_tui_table.c.i
-
-main_tui_table.s: main_tui_table.c.s
-.PHONY : main_tui_table.s
-
-# target to generate assembly for a file
-main_tui_table.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui_table.dir/build.make CMakeFiles/main_tui_table.dir/main_tui_table.c.s
-.PHONY : main_tui_table.c.s
-
-tui_example.o: tui_example.c.o
-.PHONY : tui_example.o
-
-# target to build an object file
-tui_example.c.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tui_example.dir/build.make CMakeFiles/tui_example.dir/tui_example.c.o
-.PHONY : tui_example.c.o
-
-tui_example.i: tui_example.c.i
-.PHONY : tui_example.i
-
-# target to preprocess a source file
-tui_example.c.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tui_example.dir/build.make CMakeFiles/tui_example.dir/tui_example.c.i
-.PHONY : tui_example.c.i
-
-tui_example.s: tui_example.c.s
-.PHONY : tui_example.s
-
-# target to generate assembly for a file
-tui_example.c.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/tui_example.dir/build.make CMakeFiles/tui_example.dir/tui_example.c.s
-.PHONY : tui_example.c.s
+main_tui.c.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/main_tui.dir/build.make CMakeFiles/main_tui.dir/main_tui.c.s
+.PHONY : main_tui.c.s
 
 # Help Target
 help:
@@ -466,31 +309,15 @@ help:
 	@echo "... cjson"
 	@echo "... liked_song_memories"
 	@echo "... main_tui"
-	@echo "... main_tui_clean"
-	@echo "... main_tui_inline_art"
-	@echo "... main_tui_table"
-	@echo "... tui_example"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
 	@echo "... main_functions.o"
 	@echo "... main_functions.i"
 	@echo "... main_functions.s"
-	@echo "... main_tui_clean.o"
-	@echo "... main_tui_clean.i"
-	@echo "... main_tui_clean.s"
-	@echo "... main_tui_inline_art.o"
-	@echo "... main_tui_inline_art.i"
-	@echo "... main_tui_inline_art.s"
-	@echo "... main_tui_integration.o"
-	@echo "... main_tui_integration.i"
-	@echo "... main_tui_integration.s"
-	@echo "... main_tui_table.o"
-	@echo "... main_tui_table.i"
-	@echo "... main_tui_table.s"
-	@echo "... tui_example.o"
-	@echo "... tui_example.i"
-	@echo "... tui_example.s"
+	@echo "... main_tui.o"
+	@echo "... main_tui.i"
+	@echo "... main_tui.s"
 .PHONY : help
 
 

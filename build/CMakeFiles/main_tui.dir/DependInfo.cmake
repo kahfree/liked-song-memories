@@ -8,8 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/Users/ethancaffrey/Documents/liked-song-memories/main_functions.c" "CMakeFiles/main_tui.dir/main_functions.c.o" "gcc" "CMakeFiles/main_tui.dir/main_functions.c.o.d"
-  "/Users/ethancaffrey/Documents/liked-song-memories/main_tui_integration.c" "CMakeFiles/main_tui.dir/main_tui_integration.c.o" "gcc" "CMakeFiles/main_tui.dir/main_tui_integration.c.o.d"
+  "/home/ethanc/Documents/liked-song-memories/main_functions.c" "CMakeFiles/main_tui.dir/main_functions.c.o" "gcc" "CMakeFiles/main_tui.dir/main_functions.c.o.d"
+  "/home/ethanc/Documents/liked-song-memories/main_tui.c" "CMakeFiles/main_tui.dir/main_tui.c.o" "gcc" "CMakeFiles/main_tui.dir/main_tui.c.o.d"
+  "" "main_tui" "gcc" "CMakeFiles/main_tui.dir/link.d"
   )
 
 # Targets to which this target links which contain Fortran sources.
