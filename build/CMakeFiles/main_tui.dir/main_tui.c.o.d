@@ -37,14 +37,17 @@ CMakeFiles/main_tui.dir/main_tui.c.o: \
  /usr/include/bits/posix_opt.h /usr/include/bits/environments.h \
  /usr/include/bits/confname.h /usr/include/bits/getopt_posix.h \
  /usr/include/bits/getopt_core.h /usr/include/bits/unistd_ext.h \
- /usr/include/sys/socket.h /usr/include/bits/types/struct_iovec.h \
- /usr/include/bits/socket.h /usr/include/bits/socket_type.h \
- /usr/include/bits/sockaddr.h /usr/include/asm/socket.h \
- /usr/include/asm-generic/socket.h /usr/include/linux/posix_types.h \
- /usr/include/linux/stddef.h /usr/include/asm/posix_types.h \
- /usr/include/asm/posix_types_64.h /usr/include/asm-generic/posix_types.h \
- /usr/include/asm/bitsperlong.h /usr/include/asm-generic/bitsperlong.h \
- /usr/include/asm/sockios.h /usr/include/asm-generic/sockios.h \
+ /usr/include/time.h /usr/include/bits/time.h \
+ /usr/include/bits/types/struct_tm.h \
+ /usr/include/bits/types/struct_itimerspec.h /usr/include/sys/socket.h \
+ /usr/include/bits/types/struct_iovec.h /usr/include/bits/socket.h \
+ /usr/include/bits/socket_type.h /usr/include/bits/sockaddr.h \
+ /usr/include/asm/socket.h /usr/include/asm-generic/socket.h \
+ /usr/include/linux/posix_types.h /usr/include/linux/stddef.h \
+ /usr/include/asm/posix_types.h /usr/include/asm/posix_types_64.h \
+ /usr/include/asm-generic/posix_types.h /usr/include/asm/bitsperlong.h \
+ /usr/include/asm-generic/bitsperlong.h /usr/include/asm/sockios.h \
+ /usr/include/asm-generic/sockios.h \
  /usr/include/bits/types/struct_osockaddr.h /usr/include/netinet/in.h \
  /usr/include/bits/stdint-uintn.h /usr/include/bits/in.h \
  /usr/include/arpa/inet.h /usr/include/curl/curl.h \
@@ -56,14 +59,11 @@ CMakeFiles/main_tui.dir/main_tui.c.o: \
  /usr/include/bits/pthread_stack_min-dynamic.h \
  /usr/include/bits/pthread_stack_min.h /usr/include/bits/posix2_lim.h \
  /usr/include/bits/xopen_lim.h /usr/include/bits/uio_lim.h \
- /usr/include/time.h /usr/include/bits/time.h \
- /usr/include/bits/types/struct_tm.h \
- /usr/include/bits/types/struct_itimerspec.h /usr/include/sys/time.h \
- /usr/include/curl/easy.h /usr/include/curl/multi.h \
- /usr/include/curl/curl.h /usr/include/curl/urlapi.h \
- /usr/include/curl/options.h /usr/include/curl/header.h \
- /usr/include/curl/websockets.h /usr/include/curl/mprintf.h \
- /usr/include/curl/typecheck-gcc.h \
+ /usr/include/sys/time.h /usr/include/curl/easy.h \
+ /usr/include/curl/multi.h /usr/include/curl/curl.h \
+ /usr/include/curl/urlapi.h /usr/include/curl/options.h \
+ /usr/include/curl/header.h /usr/include/curl/websockets.h \
+ /usr/include/curl/mprintf.h /usr/include/curl/typecheck-gcc.h \
  /home/ethanc/Documents/liked-song-memories/build/_deps/cjson-src/cJSON.h \
  /usr/include/notcurses/notcurses.h /usr/include/ctype.h \
  /usr/include/wchar.h /usr/include/bits/wchar.h \

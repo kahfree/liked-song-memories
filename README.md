@@ -95,8 +95,29 @@ As this is an MVP, quite a few corners are cut. I tried to do things the proper 
 - The format of the date-time object is assumed too.
 - The market is currently hardcoded to `IE`, could open this up as a prop but would only make sense if other people could use this.
 
+## TUI Extension
+A terminal UI was later added on top of the CLI version using the [notcurses](https://github.com/dankamongmen/notcurses) library. It presents matched songs in a formatted table with inline album art rendered at pixel level.
+
+### Additional Requirements
+- `notcurses` library installed
+- Terminal with kitty graphics protocol support (e.g. Kitty, Ghostty, WezTerm) for pixel-quality art
+
+### Usage
+```sh
+cd build && cmake .. && make main_tui
+./build/main_tui <client_id> <client_secret>
+```
+Press `q` to quit.
+
+### Screenshot
+<!-- add screenshot here -->
+
+> **Note:** The TUI extension was built with AI assistance (Claude Code), unlike the original CLI which was written without AI.
+
+---
+
 ## Future Work
 Sort of a follow on from limitations, there are things I would love to improve with this app:
 - Allow anyone to run this and use their Spotify account
-- Add more throrough error handling
+- Add more thorough error handling
 - Collect filtered API response into an object to present more stats
