@@ -110,7 +110,8 @@ cd build && cmake .. && make main_tui
 Press `q` to quit.
 
 ### Screenshot
-<!-- add screenshot here -->
+<img width="617" height="474" alt="image" src="https://github.com/user-attachments/assets/82d66ae1-0d37-413f-9804-540dc509d959" />
+
 
 > **Note:** The TUI extension was built with AI assistance (Claude Code), unlike the original CLI which was written without AI.
 
